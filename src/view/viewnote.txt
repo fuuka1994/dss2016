@@ -1,0 +1,1 @@
+Các ghi chú về view sẽ được lưu trong file này.
