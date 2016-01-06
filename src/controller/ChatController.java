@@ -19,6 +19,9 @@ public class ChatController {
 	private List<Question> questions;
 	private List<Answer> answers;
 	
+	private String keyword;
+	private int type;
+	
 	public ChatController(){
 		view = new ChatWindow();
 		try {
@@ -43,8 +46,13 @@ public class ChatController {
 		view.refreshLog();
 		
 		view.addBaithuocButtonActionListener(getBaithuocActionListener());
+		view.addTenBaiThuocButtonActionListener(getTenBaiThuocActionListener());
+		view.addOkButtonActionListener(getOkActionListener());
 		
 		view.setVisible(true);
+		
+		keyword = "";
+		type = 0;
 	}
 	
 	private ActionListener getBaithuocActionListener(){
@@ -54,10 +62,47 @@ public class ChatController {
 			public void actionPerformed(ActionEvent e) {
 				view.generatePatientSentence("T\u00f4i mu\u1ed1n h\u1ecfi v\u1ec1 b\u00e0i thu\u1ed1c.");
 				view.generateBaithuocPanel();
-				view.generateDoctorField("Fuckkk");
 				view.refreshLog();
 			}
 		};
 		return listener;
 	}
+	
+	private ActionListener getTenBaiThuocActionListener(){
+		ActionListener listener = new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				view.generatePatientSentence("T\u00f4i mu\u1ed1n xem th\u00f4ng tin b\u00e0i thu\u1ed1c theo t\u00ean.");
+				view.generateDoctorField("H\u00e3y nh\u1eadp t\u00ean b\u00e0i thu\u1ed1c");
+				view.refreshLog();
+			}
+		};
+		return listener;
+	}
+	
+	private ActionListener getOkActionListener(){
+		ActionListener listener = new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String kw = view.getKeyWord();
+				if(kw != null && kw != ""){
+					keyword = kw;
+					view.generatePatientSentence("T\u00ecm theo t\u00ean b\u00e0i thu\u1ed1c '" + keyword + "'.");
+//					view.generateDoctorField("H\u00e3y nh\u1eadp t\u00ean b\u00e0i thu\u1ed1c");
+					view.refreshLog();
+				}
+			}
+		};
+		return listener;
+	}
+	
+//	private boolean checkAllSpace(String s){
+//		for (int i = 0; i < s.length(); i++) {
+//			if(!(s[i] == ' ')){
+//				
+//			}
+//		}
+//	}
 }

@@ -17,13 +17,13 @@ import javax.swing.JLabel;
 
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListCellRenderer;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+
 import javax.swing.JScrollPane;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -67,8 +67,8 @@ public class ChatWindow extends JFrame {
 	
 	private final String baithuocImg = "bt.png";
 	private final String baithuocHoverImg = "bth.png";
-	private final String caythuocImg = "ct.png";
-	private final String caythuocHoverImg = "cth.png";
+	private final String vithuocImg = "vt.png";
+	private final String vithuocHoverImg = "vth.png";
 	private final String benhImg = "b.png";
 	private final String benhHoverImg = "bh.png";
 	private final String luongyImg = "ly.png";
@@ -77,25 +77,31 @@ public class ChatWindow extends JFrame {
 	private final String nhathuocHoverImg = "nth.png";
 	private final String baivietImg = "bv.png";
 	private final String baivietHoverImg = "bvh.png";
+	
 	private final String tenbaithuocImg = "tbt.png";
 	private final String tenbaithuocHoverImg = "tbth.png";
 	private final String benhcanchuaImg = "bcc.png";
 	private final String benhcanchuaHoverImg = "bcch.png";
-	private final String caythuoctrongbaiImg = "cttb.png";
-	private final String caythuoctrongbaiHoverImg = "cttbh.png";
+	private final String vithuoctrongbaiImg = "vttb.png";
+	private final String vithuoctrongbaiHoverImg = "vttbh.png";
+	private final String nhathuoccobanImg = "ntcb.png";
+	private final String nhathuoccobanHoverImg = "ntcbh.png";
+	
+	
+	
 	private final String okImg = "ok.png";
 	private final String okHoverImg = "okh.png";
+	
+	
 
 	private JScrollPane scrollAskPane;
 	private JPanel chatList;
-	private DefaultListModel<JPanel> chatListModel;
-	private JPanel questionPanel;
 	private ImageButton backButton;
 	private ImageButton askButton;
 	private ImageButton resetButton;
 	
 	private ImageButton baithuocButton;
-	private ImageButton caythuocButton;
+	private ImageButton vithuocButton;
 	private ImageButton benhButton;
 	private ImageButton luongyButton;
 	private ImageButton nhathuocButton;
@@ -103,10 +109,16 @@ public class ChatWindow extends JFrame {
 	
 	private ImageButton tenbaithuocButton;
 	private ImageButton benhcanchuaButton;
-	private ImageButton caythuoctrongbaiButton;
+	private ImageButton vithuoctrongbaiButton;
+	private ImageButton nhathuoccobanButton;
 	
 	private JTextField keywordfield;
 	private ImageButton okButton;
+	
+	private JList<JLabel> resultList;
+	private DefaultListModel<JLabel> labelListModel;
+	private LabelListCellRenderer labelRenderer;
+
 	
 	private List<JPanel> logs;
 	
@@ -151,7 +163,6 @@ public class ChatWindow extends JFrame {
 		chatList = new JPanel(new WrapLayout());
 		chatList.setMaximumSize(new Dimension(500, 100000));
 		scrollAskPane.setViewportView(chatList);
-		chatListModel = new DefaultListModel<JPanel>();
 		chatList.setBackground(bgColor);
 		chatList.setForeground(fgColor);
 		chatList.setBorder(new EmptyBorder(0, 0, 10, 0));
@@ -189,9 +200,9 @@ public class ChatWindow extends JFrame {
 		baithuocButton.setPreferredSize(new Dimension(100, 100));
 		baithuocButton.setOpaque(false);
 		
-		caythuocButton = new ImageButton(caythuocImg, caythuocHoverImg);
-		caythuocButton.setPreferredSize(new Dimension(100, 100));
-		caythuocButton.setOpaque(false);
+		vithuocButton = new ImageButton(vithuocImg, vithuocHoverImg);
+		vithuocButton.setPreferredSize(new Dimension(100, 100));
+		vithuocButton.setOpaque(false);
 		
 		benhButton = new ImageButton(benhImg, benhHoverImg);
 		benhButton.setPreferredSize(new Dimension(100, 100));
@@ -219,9 +230,13 @@ public class ChatWindow extends JFrame {
 		benhcanchuaButton.setPreferredSize(new Dimension(200, 50));
 		benhcanchuaButton.setOpaque(false);
 		
-		caythuoctrongbaiButton = new ImageButton(caythuoctrongbaiImg, caythuoctrongbaiHoverImg);
-		caythuoctrongbaiButton.setPreferredSize(new Dimension(200, 50));
-		caythuoctrongbaiButton.setOpaque(false);
+		vithuoctrongbaiButton = new ImageButton(vithuoctrongbaiImg, vithuoctrongbaiHoverImg);
+		vithuoctrongbaiButton.setPreferredSize(new Dimension(200, 50));
+		vithuoctrongbaiButton.setOpaque(false);
+		
+		nhathuoccobanButton = new ImageButton(nhathuoccobanImg, nhathuoccobanHoverImg);
+		nhathuoccobanButton.setPreferredSize(new Dimension(200, 50));
+		nhathuoccobanButton.setOpaque(false);
 		
 		okButton = new ImageButton(okImg, okHoverImg);
 		okButton.setPreferredSize(new Dimension(50, 50));
@@ -232,6 +247,22 @@ public class ChatWindow extends JFrame {
 		keywordfield.setForeground(fgColor);
 		keywordfield.setFont(SMALLER_FONT);
 		
+		resultList = new JList<JLabel>();
+		labelListModel = new DefaultListModel<JLabel>();
+		resultList.setModel(labelListModel);
+		resultList.setBackground(fgColor2);
+		
+		List<String> str = new ArrayList<String>();
+		
+		str.add("1");
+		str.add("2");
+		str.add("3");
+		str.add("1");
+		str.add("2");
+		str.add("3");
+		
+		
+		generateResultList("test", str);
 	}
 	
 	public void generateDoctorSentence(String sentence){
@@ -346,7 +377,7 @@ public class ChatWindow extends JFrame {
 		buttonPanel.setOpaque(false);
 		
 		buttonPanel.add(baithuocButton);
-		buttonPanel.add(caythuocButton);
+		buttonPanel.add(vithuocButton);
 		buttonPanel.add(benhButton);
 		buttonPanel.add(luongyButton);
 		buttonPanel.add(nhathuocButton);
@@ -397,14 +428,15 @@ public class ChatWindow extends JFrame {
 		
 		buttonPanel.add(tenbaithuocButton);
 		buttonPanel.add(benhcanchuaButton);
-		buttonPanel.add(caythuoctrongbaiButton);
+		buttonPanel.add(vithuoctrongbaiButton);
+		buttonPanel.add(nhathuoccobanButton);
 		textButtonPanel.add(buttonPanel);
 		
 		panelBaithuoc.add(bubble, BorderLayout.CENTER);
 		logs.add(panelBaithuoc);
 	}
 	
-	public String generateDoctorField(String sentence){
+	public void generateDoctorField(String sentence){
 		JPanel panelDoctor = new JPanel(new BorderLayout());
 		panelDoctor.setOpaque(false);
 		
@@ -447,10 +479,51 @@ public class ChatWindow extends JFrame {
 		
 		panelDoctor.add(bubble, BorderLayout.CENTER);
 		logs.add(panelDoctor);
-		
-		return null;
 	}
-
+	
+	public void generateResultList(String sentence, List<String> result){
+		JPanel panelDoctor = new JPanel(new BorderLayout());
+		panelDoctor.setOpaque(false);
+		
+		ImageLabel doctorLabel = new ImageLabel(doctorImg, 60, 45);
+		panelDoctor.add(doctorLabel, BorderLayout.WEST);
+		
+		JPanel bubble = new JPanel(new BorderLayout());
+		bubble.setOpaque(false);
+		
+		ImageLabel topLabel = new ImageLabel(topBubbleImg, 500, 25);
+		ImageLabel bottomLabel = new ImageLabel(bottomBubbleImg, 500, 15);
+		
+		JPanel textPanel = new JPanel(new WrapLayout());
+		textPanel.setBackground(fgColor2);
+		
+		bubble.add(topLabel, BorderLayout.NORTH);
+		
+		bubble.add(bottomLabel, BorderLayout.SOUTH);
+		
+		bubble.add(textPanel, BorderLayout.CENTER);
+		
+		JTextArea text = new JTextArea(sentence);
+		text.setFont(SMALLER_FONT);
+		text.setForeground(bgColor);
+		text.setOpaque(false);
+		text.setEditable(false);
+		text.setColumns(34);
+		text.setLineWrap(true);
+		text.setWrapStyleWord(true);
+		
+		textPanel.add(text);
+		
+		setListOfResult(result);
+		JScrollPane resultScroll = new JScrollPane();
+//		resultScroll.setBackground(fgColor2);
+		resultScroll.setPreferredSize(new Dimension(480, 150));
+		resultScroll.setViewportView(resultList);
+		textPanel.add(resultScroll);
+		
+		panelDoctor.add(bubble, BorderLayout.CENTER);
+		logs.add(panelDoctor);
+	}
 	
 	public void refreshLog() {
 //		chatListModel.clear();
@@ -460,7 +533,6 @@ public class ChatWindow extends JFrame {
 		chatList.removeAll();
 		
 		for (JPanel log: logs) {
-//			chatListModel.addElement(log);
 			chatList.add(log);
 		}
 		chatList.repaint();
@@ -486,8 +558,8 @@ public class ChatWindow extends JFrame {
 		baithuocButton.addActionListener(listener);
 	}
 	
-	public void addCaythuocButtonActionListener(ActionListener listener){
-		caythuocButton.addActionListener(listener);
+	public void addVithuocButtonActionListener(ActionListener listener){
+		vithuocButton.addActionListener(listener);
 	}
 	
 	public void addBenhButtonActionListener(ActionListener listener){
@@ -506,5 +578,67 @@ public class ChatWindow extends JFrame {
 		baivietButton.addActionListener(listener);
 	}
 	
+	public void addTenBaiThuocButtonActionListener(ActionListener listener){
+		tenbaithuocButton.addActionListener(listener);
+	}
 	
+	public void addViThuocTrongBaiButtonActionListener(ActionListener listener){
+		vithuoctrongbaiButton.addActionListener(listener);
+	}
+	
+	public void addNhaThuocCoBanButtonActionListener(ActionListener listener){
+		nhathuoccobanButton.addActionListener(listener);
+	}
+	
+	public void addBenhCanChuaButtonActionListener(ActionListener listener){
+		benhcanchuaButton.addActionListener(listener);
+	}
+	
+	public void addOkButtonActionListener(ActionListener listener){
+		okButton.addActionListener(listener);
+	}
+	
+	public String getKeyWord(){
+		return keywordfield.getText();
+	}
+	
+	public void setListOfResult(List<String> result) {
+		labelListModel.clear();
+		labelRenderer = new LabelListCellRenderer();
+		resultList.setCellRenderer(labelRenderer);
+
+		for (String res : result) {
+			labelListModel.addElement(getResultLabel(res));
+		}
+	}
+	
+	private JLabel getResultLabel(String s){
+		JLabel resultLabel = new JLabel(s);
+		resultLabel.setPreferredSize(new Dimension(440, 50));
+		resultLabel.setFont(SMALLER_FONT);
+		resultLabel.setBorder(new EmptyBorder(0, 5, 0, 0));
+		return resultLabel;
+	}
+
+	class LabelListCellRenderer implements ListCellRenderer<JLabel> {
+
+		@Override
+		public Component getListCellRendererComponent(JList<? extends JLabel> list, JLabel value, int index, boolean isSelected, boolean cellHasFocus) {
+			if (value != null) {
+				if (isSelected) {
+					value.setOpaque(true);
+					value.setBackground(bgColor2);
+					value.setForeground(fgColor);
+				} else {
+					value.setForeground(bgColor);
+					value.setBackground(fgColor);
+					value.setOpaque(false);
+				}
+				return value;
+			} else {
+				return new JLabel("???");
+			}
+		}
+	}
+
 }
