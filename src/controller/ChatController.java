@@ -78,6 +78,8 @@ public class ChatController {
 		view.addKhuVucNhaThuocButtonActionListener(getKhuVucNhaThuocActionListener());
 		
 		view.addBaivietButtonActionListener(getBaiVietActionListener());
+		view.addDanhYButtonActionListener(getDanhYActionListener());
+		view.addKhacButtonActionListener(getKhacActionListener());
 		
 		view.addOkButtonActionListener(getOkActionListener());
 		
@@ -186,8 +188,8 @@ public class ChatController {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				view.generatePatientSentence("T\u00f4i mu\u1ed1n h\u1ecfi v\u1ec1 th\u00f4ng tin kh\u00e1c.");
-				view.generateDoctorField("H\u00e3y nh\u1eadp t\u1eeb kh\u00f3a");
+				view.generatePatientSentence("T\u00f4i mu\u1ed1n xem lo\u1ea1i th\u00f4ng tin kh\u00e1c.");
+				view.generateBaiVietPanel();
 				view.refreshLog();
 			}
 		};
@@ -414,6 +416,33 @@ public class ChatController {
 			public void actionPerformed(ActionEvent e) {
 				view.generatePatientSentence("T\u00f4i mu\u1ed1n xem th\u00f4ng tin nh\u00e0 thu\u1ed1c y theo khu v\u1ef1c nh\u00e0 thu\u1ed1c.");
 				view.generateDoctorField("H\u00e3y nh\u1eadp khu v\u1ef1c");
+				view.refreshLog();
+			}
+		};
+		return listener;
+	}
+	
+	//cac listener nha thuoc
+	private ActionListener getDanhYActionListener(){
+		ActionListener listener = new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				view.generatePatientSentence("T\u00f4i mu\u1ed1n xem th\u00f4ng tin danh y.");
+				view.generateDoctorField("H\u00e3y nh\u1eadp t\u00ean danh y");
+				view.refreshLog();
+			}
+		};
+		return listener;
+	}
+	
+	private ActionListener getKhacActionListener(){
+		ActionListener listener = new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				view.generatePatientSentence("T\u00f4i mu\u1ed1n xem lo\u1ea1i th\u00f4ng tin kh\u00e1c.");
+				view.generateDoctorField("H\u00e3y nh\u1eadp t\u1eeb kh\u00f3a");
 				view.refreshLog();
 			}
 		};

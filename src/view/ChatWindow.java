@@ -8,6 +8,7 @@ import java.awt.Font;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -113,6 +114,10 @@ public class ChatWindow extends JFrame {
 	private final String luongymuonchuaHoverImg = "lymch.png";
 	private final String khuvucnhathuocImg = "kv.png";
 	private final String khuvucnhathuocHoverImg = "kvh.png";
+	private final String danhyImg = "dy.png";
+	private final String danhyHoverImg = "dyh.png";
+	private final String khacImg = "k.png";
+	private final String khacHoverImg = "kh.png";
 	
 	
 	private final String okImg = "ok.png";
@@ -154,6 +159,9 @@ public class ChatWindow extends JFrame {
 	private ImageButton baithuoccanmuaButton;
 	private ImageButton luongymuonchuaButton;
 	private ImageButton khuvucnhathuocButton;
+	//cac nut ve bai viet
+	private ImageButton danhyButton;
+	private ImageButton khacButton;
 	
 	//nut va field cho form nhap
 	private JTextField keywordfield;
@@ -339,6 +347,15 @@ public class ChatWindow extends JFrame {
 		khuvucnhathuocButton = new ImageButton(khuvucnhathuocImg, khuvucnhathuocHoverImg);
 		khuvucnhathuocButton.setPreferredSize(new Dimension(200, 50));
 		khuvucnhathuocButton.setOpaque(false);
+		
+		//cac nut ve bai viet
+		danhyButton = new ImageButton(danhyImg, danhyHoverImg);
+		danhyButton.setPreferredSize(new Dimension(200, 50));
+		danhyButton.setOpaque(false);
+		
+		khacButton = new ImageButton(khacImg, khacHoverImg);
+		khacButton.setPreferredSize(new Dimension(200, 50));
+		khacButton.setOpaque(false);
 		
 		//cac nut ve field chung
 		okButton = new ImageButton(okImg, okHoverImg);
@@ -713,6 +730,51 @@ public class ChatWindow extends JFrame {
 		logs.add(panelNhaThuoc);
 	}
 	
+	public void generateBaiVietPanel(){
+		JPanel panelVithuoc = new JPanel(new BorderLayout());
+		panelVithuoc.setOpaque(false);
+		
+		ImageLabel doctorLabel = new ImageLabel(doctorImg, 60, 45);
+		panelVithuoc.add(doctorLabel, BorderLayout.WEST);
+		
+		JPanel bubble = new JPanel(new BorderLayout());
+		bubble.setOpaque(false);
+		
+		ImageLabel topLabel = new ImageLabel(topBubbleImg, 500, 25);
+		ImageLabel bottomLabel = new ImageLabel(bottomBubbleImg, 500, 15);
+		
+		JPanel textButtonPanel = new JPanel(new WrapLayout());
+		textButtonPanel.setBackground(fgColor2);
+		
+		bubble.add(topLabel, BorderLayout.NORTH);
+		
+		bubble.add(bottomLabel, BorderLayout.SOUTH);
+		
+		bubble.add(textButtonPanel, BorderLayout.CENTER);
+		
+		JTextArea text = new JTextArea("C\u00f3 theo ti\u00eau ch\u00ed g\u00ec \u0111\u1eb7c bi\u1ec7t kh\u00f4ng?");
+		text.setFont(SMALLER_FONT);
+		text.setForeground(bgColor);
+		text.setOpaque(false);
+		text.setEditable(false);
+		text.setColumns(34);
+		text.setLineWrap(true);
+		text.setWrapStyleWord(true);
+		
+		textButtonPanel.add(text);
+		
+		JPanel buttonPanel = new JPanel(new FlowLayout());
+		buttonPanel.setPreferredSize(new Dimension(450, 60));
+		buttonPanel.setOpaque(false);
+		
+		buttonPanel.add(danhyButton);
+		buttonPanel.add(khacButton);
+		textButtonPanel.add(buttonPanel);
+		
+		panelVithuoc.add(bubble, BorderLayout.CENTER);
+		logs.add(panelVithuoc);
+	}
+	
 	public void generateDoctorField(String sentence){
 		JPanel panelDoctor = new JPanel(new BorderLayout());
 		panelDoctor.setOpaque(false);
@@ -750,6 +812,7 @@ public class ChatWindow extends JFrame {
 		buttonPanel.setPreferredSize(new Dimension(490, 60));
 		buttonPanel.setOpaque(false);
 		
+		keywordfield.setText("");
 		buttonPanel.add(keywordfield);
 		buttonPanel.add(okButton);
 		textPanel.add(buttonPanel);
@@ -920,6 +983,14 @@ public class ChatWindow extends JFrame {
 		luongymuonchuaButton.addActionListener(listener);
 	}
 	
+	//them listener cho cac nut ve nha thuoc
+	public void addDanhYButtonActionListener(ActionListener listener){
+		danhyButton.addActionListener(listener);
+	}
+	public void addKhacButtonActionListener(ActionListener listener){
+		khacButton.addActionListener(listener);
+	}
+	
 	//them listener cho cac nut OK
 	public void addOkButtonActionListener(ActionListener listener){
 		okButton.addActionListener(listener);
@@ -976,6 +1047,10 @@ public class ChatWindow extends JFrame {
 				return new JLabel("???");
 			}
 		}
+	}
+	
+	public void addResultListMouseListener(MouseAdapter adapter){
+		resultList.addMouseListener(adapter);
 	}
 
 }
