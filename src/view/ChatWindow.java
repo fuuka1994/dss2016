@@ -86,7 +86,33 @@ public class ChatWindow extends JFrame {
 	private final String vithuoctrongbaiHoverImg = "vttbh.png";
 	private final String nhathuoccobanImg = "ntcb.png";
 	private final String nhathuoccobanHoverImg = "ntcbh.png";
+	private final String tenvithuocImg = "tvt.png";
+	private final String tenvithuocHoverImg = "tvth.png";
+	private final String baithuoccovinayImg = "btcvn.png";
+	private final String baithuoccovinayHoverImg = "btcvnh.png";
 	
+	private final String tenbenhImg = "tb.png";
+	private final String tenbenhHoverImg = "tbh.png";
+	private final String luongychuanoImg = "lycn.png";
+	private final String luongychuanoHoverImg = "lycnh.png";
+	private final String baithuocchuabenhImg = "btcb.png";
+	private final String baithuocchuabenhHoverImg = "btcbh.png";
+	private final String tenluongyImg = "tly.png";
+	private final String tenluongyHoverImg = "tlyh.png";
+	private final String khuvucluongyImg = "kv.png";
+	private final String khuvucluongyHoverImg = "kvh.png";
+	private final String benhcanchualuongyImg = "bcc.png";
+	private final String benhcanchualuongyHoverImg = "bcch.png";
+	private final String nhathuocdanglamImg = "ntdl.png";
+	private final String nhathuocdanglamHoverImg = "ntdl.png";
+	private final String tennhathuocImg = "tnt.png";
+	private final String tennhathuocHoverImg = "tnth.png";
+	private final String baithuoccanmuaImg = "btcm.png";
+	private final String baithuoccanmuaHoverImg = "btcmh.png";
+	private final String luongymuonchuaImg = "lymc.png";
+	private final String luongymuonchuaHoverImg = "lymch.png";
+	private final String khuvucnhathuocImg = "kv.png";
+	private final String khuvucnhathuocHoverImg = "kvh.png";
 	
 	
 	private final String okImg = "ok.png";
@@ -99,27 +125,46 @@ public class ChatWindow extends JFrame {
 	private ImageButton backButton;
 	private ImageButton askButton;
 	private ImageButton resetButton;
-	
+	//cac nut chinh
 	private ImageButton baithuocButton;
 	private ImageButton vithuocButton;
 	private ImageButton benhButton;
 	private ImageButton luongyButton;
 	private ImageButton nhathuocButton;
 	private ImageButton baivietButton;
-	
+	//cac nut ve bai thuoc
 	private ImageButton tenbaithuocButton;
 	private ImageButton benhcanchuaButton;
 	private ImageButton vithuoctrongbaiButton;
 	private ImageButton nhathuoccobanButton;
+	//cac nut ve vi thuoc
+	private ImageButton tenvithuocButton;
+	private ImageButton baithuoccovinayButton;
+	//cac nut ve benh
+	private ImageButton tenbenhButton;
+	private ImageButton luongychuanoButton;
+	private ImageButton baithuocchuabenhButton;
+	//cac nut ve luong y
+	private ImageButton tenluongyButton;
+	private ImageButton khuvucluongyButton;
+	private ImageButton benhcanchualuongyButton;
+	private ImageButton nhathuocdanglamButton;
+	//cac nut ve nha thuoc
+	private ImageButton tennhathuocButton;
+	private ImageButton baithuoccanmuaButton;
+	private ImageButton luongymuonchuaButton;
+	private ImageButton khuvucnhathuocButton;
 	
+	//nut va field cho form nhap
 	private JTextField keywordfield;
 	private ImageButton okButton;
 	
+	//list label dung cho lít ket qua
 	private JList<JLabel> resultList;
 	private DefaultListModel<JLabel> labelListModel;
 	private LabelListCellRenderer labelRenderer;
 
-	
+	//list tat ca Jpanel trong khung chat
 	private List<JPanel> logs;
 	
 	public ChatWindow(){
@@ -222,6 +267,7 @@ public class ChatWindow extends JFrame {
 		
 		logs = new ArrayList<JPanel>();
 		
+		//cac nut ve bai thuoc
 		tenbaithuocButton = new ImageButton(tenbaithuocImg, tenbaithuocHoverImg);
 		tenbaithuocButton.setPreferredSize(new Dimension(200, 50));
 		tenbaithuocButton.setOpaque(false);
@@ -238,6 +284,63 @@ public class ChatWindow extends JFrame {
 		nhathuoccobanButton.setPreferredSize(new Dimension(200, 50));
 		nhathuoccobanButton.setOpaque(false);
 		
+		//cac nut ve vi thuoc
+		tenvithuocButton = new ImageButton(tenvithuocImg, tenvithuocHoverImg);
+		tenvithuocButton.setPreferredSize(new Dimension(200, 50));
+		tenvithuocButton.setOpaque(false);
+		
+		baithuoccovinayButton = new ImageButton(baithuoccovinayImg, baithuoccovinayHoverImg);
+		baithuoccovinayButton.setPreferredSize(new Dimension(200, 50));
+		baithuoccovinayButton.setOpaque(false);
+		
+		//cac nut ve benh
+		tenbenhButton = new ImageButton(tenbenhImg, tenbenhHoverImg);
+		tenbenhButton.setPreferredSize(new Dimension(200, 50));
+		tenbenhButton.setOpaque(false);
+		
+		luongychuanoButton = new ImageButton(luongychuanoImg, luongychuanoHoverImg);
+		luongychuanoButton.setPreferredSize(new Dimension(200, 50));
+		luongychuanoButton.setOpaque(false);
+		
+		baithuocchuabenhButton = new ImageButton(baithuocchuabenhImg, baithuocchuabenhHoverImg);
+		baithuocchuabenhButton.setPreferredSize(new Dimension(200, 50));
+		baithuocchuabenhButton.setOpaque(false);
+		
+		//cac nut ve luong y
+		tenluongyButton = new ImageButton(tenluongyImg, tenluongyHoverImg);
+		tenluongyButton.setPreferredSize(new Dimension(200, 50));
+		tenluongyButton.setOpaque(false);
+		
+		khuvucluongyButton = new ImageButton(khuvucluongyImg, khuvucluongyHoverImg);
+		khuvucluongyButton.setPreferredSize(new Dimension(200, 50));
+		khuvucluongyButton.setOpaque(false);
+		
+		benhcanchualuongyButton = new ImageButton(benhcanchualuongyImg, benhcanchualuongyHoverImg);
+		benhcanchualuongyButton.setPreferredSize(new Dimension(200, 50));
+		benhcanchualuongyButton.setOpaque(false);
+		
+		nhathuocdanglamButton = new ImageButton(nhathuocdanglamImg, nhathuocdanglamHoverImg);
+		nhathuocdanglamButton.setPreferredSize(new Dimension(200, 50));
+		nhathuocdanglamButton.setOpaque(false);
+		
+		//cac nut ve nha thuoc
+		tennhathuocButton = new ImageButton(tennhathuocImg, tennhathuocHoverImg);
+		tennhathuocButton.setPreferredSize(new Dimension(200, 50));
+		tennhathuocButton.setOpaque(false);
+		
+		baithuoccanmuaButton = new ImageButton(baithuoccanmuaImg, baithuoccanmuaHoverImg);
+		baithuoccanmuaButton.setPreferredSize(new Dimension(200, 50));
+		baithuoccanmuaButton.setOpaque(false);
+		
+		luongymuonchuaButton = new ImageButton(luongymuonchuaImg, luongymuonchuaHoverImg);
+		luongymuonchuaButton.setPreferredSize(new Dimension(200, 50));
+		luongymuonchuaButton.setOpaque(false);
+		
+		khuvucnhathuocButton = new ImageButton(khuvucnhathuocImg, khuvucnhathuocHoverImg);
+		khuvucnhathuocButton.setPreferredSize(new Dimension(200, 50));
+		khuvucnhathuocButton.setOpaque(false);
+		
+		//cac nut ve field chung
 		okButton = new ImageButton(okImg, okHoverImg);
 		okButton.setPreferredSize(new Dimension(50, 50));
 		okButton.setOpaque(false);
@@ -252,17 +355,6 @@ public class ChatWindow extends JFrame {
 		resultList.setModel(labelListModel);
 		resultList.setBackground(fgColor2);
 		
-		List<String> str = new ArrayList<String>();
-		
-		str.add("1");
-		str.add("2");
-		str.add("3");
-		str.add("1");
-		str.add("2");
-		str.add("3");
-		
-		
-		generateResultList("test", str);
 	}
 	
 	public void generateDoctorSentence(String sentence){
@@ -435,6 +527,191 @@ public class ChatWindow extends JFrame {
 		panelBaithuoc.add(bubble, BorderLayout.CENTER);
 		logs.add(panelBaithuoc);
 	}
+
+	public void generateVithuocPanel(){
+		JPanel panelVithuoc = new JPanel(new BorderLayout());
+		panelVithuoc.setOpaque(false);
+		
+		ImageLabel doctorLabel = new ImageLabel(doctorImg, 60, 45);
+		panelVithuoc.add(doctorLabel, BorderLayout.WEST);
+		
+		JPanel bubble = new JPanel(new BorderLayout());
+		bubble.setOpaque(false);
+		
+		ImageLabel topLabel = new ImageLabel(topBubbleImg, 500, 25);
+		ImageLabel bottomLabel = new ImageLabel(bottomBubbleImg, 500, 15);
+		
+		JPanel textButtonPanel = new JPanel(new WrapLayout());
+		textButtonPanel.setBackground(fgColor2);
+		
+		bubble.add(topLabel, BorderLayout.NORTH);
+		
+		bubble.add(bottomLabel, BorderLayout.SOUTH);
+		
+		bubble.add(textButtonPanel, BorderLayout.CENTER);
+		
+		JTextArea text = new JTextArea("B\u1ea1n c\u1ea7n h\u1ecfi v\u1ec1 v\u1ecb thu\u1ed1c theo ti\u00eau ch\u00ed g\u00ec?");
+		text.setFont(SMALLER_FONT);
+		text.setForeground(bgColor);
+		text.setOpaque(false);
+		text.setEditable(false);
+		text.setColumns(34);
+		text.setLineWrap(true);
+		text.setWrapStyleWord(true);
+		
+		textButtonPanel.add(text);
+		
+		JPanel buttonPanel = new JPanel(new FlowLayout());
+		buttonPanel.setPreferredSize(new Dimension(450, 60));
+		buttonPanel.setOpaque(false);
+		
+		buttonPanel.add(tenvithuocButton);
+		buttonPanel.add(baithuoccovinayButton);
+		textButtonPanel.add(buttonPanel);
+		
+		panelVithuoc.add(bubble, BorderLayout.CENTER);
+		logs.add(panelVithuoc);
+	}
+	
+	public void generateBenhPanel(){
+		JPanel panelBenh = new JPanel(new BorderLayout());
+		panelBenh.setOpaque(false);
+		
+		ImageLabel doctorLabel = new ImageLabel(doctorImg, 60, 45);
+		panelBenh.add(doctorLabel, BorderLayout.WEST);
+		
+		JPanel bubble = new JPanel(new BorderLayout());
+		bubble.setOpaque(false);
+		
+		ImageLabel topLabel = new ImageLabel(topBubbleImg, 500, 25);
+		ImageLabel bottomLabel = new ImageLabel(bottomBubbleImg, 500, 15);
+		
+		JPanel textButtonPanel = new JPanel(new WrapLayout());
+		textButtonPanel.setBackground(fgColor2);
+		
+		bubble.add(topLabel, BorderLayout.NORTH);
+		
+		bubble.add(bottomLabel, BorderLayout.SOUTH);
+		
+		bubble.add(textButtonPanel, BorderLayout.CENTER);
+		
+		JTextArea text = new JTextArea("B\u1ea1n c\u1ea7n h\u1ecfi v\u1ec1 b\u1ec7nh theo ti\u00eau ch\u00ed g\u00ec?");
+		text.setFont(SMALLER_FONT);
+		text.setForeground(bgColor);
+		text.setOpaque(false);
+		text.setEditable(false);
+		text.setColumns(34);
+		text.setLineWrap(true);
+		text.setWrapStyleWord(true);
+		
+		textButtonPanel.add(text);
+		
+		JPanel buttonPanel = new JPanel(new FlowLayout());
+		buttonPanel.setPreferredSize(new Dimension(450, 110));
+		buttonPanel.setOpaque(false);
+		
+		buttonPanel.add(tenbenhButton);
+		buttonPanel.add(luongychuanoButton);
+		buttonPanel.add(baithuocchuabenhButton);
+		textButtonPanel.add(buttonPanel);
+		
+		panelBenh.add(bubble, BorderLayout.CENTER);
+		logs.add(panelBenh);
+	}
+	
+	public void generateLuongYPanel(){
+		JPanel panelLuongY = new JPanel(new BorderLayout());
+		panelLuongY.setOpaque(false);
+		
+		ImageLabel doctorLabel = new ImageLabel(doctorImg, 60, 45);
+		panelLuongY.add(doctorLabel, BorderLayout.WEST);
+		
+		JPanel bubble = new JPanel(new BorderLayout());
+		bubble.setOpaque(false);
+		
+		ImageLabel topLabel = new ImageLabel(topBubbleImg, 500, 25);
+		ImageLabel bottomLabel = new ImageLabel(bottomBubbleImg, 500, 15);
+		
+		JPanel textButtonPanel = new JPanel(new WrapLayout());
+		textButtonPanel.setBackground(fgColor2);
+		
+		bubble.add(topLabel, BorderLayout.NORTH);
+		
+		bubble.add(bottomLabel, BorderLayout.SOUTH);
+		
+		bubble.add(textButtonPanel, BorderLayout.CENTER);
+		
+		JTextArea text = new JTextArea("B\u1ea1n c\u1ea7n h\u1ecfi v\u1ec1 b\u1ec7nh theo ti\u00eau ch\u00ed g\u00ec?");
+		text.setFont(SMALLER_FONT);
+		text.setForeground(bgColor);
+		text.setOpaque(false);
+		text.setEditable(false);
+		text.setColumns(34);
+		text.setLineWrap(true);
+		text.setWrapStyleWord(true);
+		
+		textButtonPanel.add(text);
+		
+		JPanel buttonPanel = new JPanel(new FlowLayout());
+		buttonPanel.setPreferredSize(new Dimension(450, 110));
+		buttonPanel.setOpaque(false);
+		
+		buttonPanel.add(tenluongyButton);
+		buttonPanel.add(khuvucluongyButton);
+		buttonPanel.add(benhcanchualuongyButton);
+		buttonPanel.add(nhathuocdanglamButton);
+		textButtonPanel.add(buttonPanel);
+		
+		panelLuongY.add(bubble, BorderLayout.CENTER);
+		logs.add(panelLuongY);
+	}
+	
+	public void generateNhaThuocPanel(){
+		JPanel panelNhaThuoc = new JPanel(new BorderLayout());
+		panelNhaThuoc.setOpaque(false);
+		
+		ImageLabel doctorLabel = new ImageLabel(doctorImg, 60, 45);
+		panelNhaThuoc.add(doctorLabel, BorderLayout.WEST);
+		
+		JPanel bubble = new JPanel(new BorderLayout());
+		bubble.setOpaque(false);
+		
+		ImageLabel topLabel = new ImageLabel(topBubbleImg, 500, 25);
+		ImageLabel bottomLabel = new ImageLabel(bottomBubbleImg, 500, 15);
+		
+		JPanel textButtonPanel = new JPanel(new WrapLayout());
+		textButtonPanel.setBackground(fgColor2);
+		
+		bubble.add(topLabel, BorderLayout.NORTH);
+		
+		bubble.add(bottomLabel, BorderLayout.SOUTH);
+		
+		bubble.add(textButtonPanel, BorderLayout.CENTER);
+		
+		JTextArea text = new JTextArea("B\u1ea1n c\u1ea7n h\u1ecfi v\u1ec1 b\u1ec7nh theo ti\u00eau ch\u00ed g\u00ec?");
+		text.setFont(SMALLER_FONT);
+		text.setForeground(bgColor);
+		text.setOpaque(false);
+		text.setEditable(false);
+		text.setColumns(34);
+		text.setLineWrap(true);
+		text.setWrapStyleWord(true);
+		
+		textButtonPanel.add(text);
+		
+		JPanel buttonPanel = new JPanel(new FlowLayout());
+		buttonPanel.setPreferredSize(new Dimension(450, 110));
+		buttonPanel.setOpaque(false);
+		
+		buttonPanel.add(tennhathuocButton);
+		buttonPanel.add(baithuoccanmuaButton);
+		buttonPanel.add(luongymuonchuaButton);
+		buttonPanel.add(khuvucnhathuocButton);
+		textButtonPanel.add(buttonPanel);
+		
+		panelNhaThuoc.add(bubble, BorderLayout.CENTER);
+		logs.add(panelNhaThuoc);
+	}
 	
 	public void generateDoctorField(String sentence){
 		JPanel panelDoctor = new JPanel(new BorderLayout());
@@ -554,6 +831,7 @@ public class ChatWindow extends JFrame {
 		resetButton.addActionListener(listener);
 	}
 	
+	//them listener cho cac nut chung
 	public void addBaithuocButtonActionListener(ActionListener listener){
 		baithuocButton.addActionListener(listener);
 	}
@@ -578,6 +856,7 @@ public class ChatWindow extends JFrame {
 		baivietButton.addActionListener(listener);
 	}
 	
+	//them listener cho cac nut ve bai thuoc
 	public void addTenBaiThuocButtonActionListener(ActionListener listener){
 		tenbaithuocButton.addActionListener(listener);
 	}
@@ -594,6 +873,54 @@ public class ChatWindow extends JFrame {
 		benhcanchuaButton.addActionListener(listener);
 	}
 	
+	//them listener cho cac nut ve vi thuoc
+	public void addTenViThuocButtonActionListener(ActionListener listener){
+		tenvithuocButton.addActionListener(listener);
+	}
+	public void addBaiThuocCoViNayButtonActionListener(ActionListener listener){
+		baithuoccovinayButton.addActionListener(listener);
+	}
+	
+	//them listener cho cac nut ve benh
+	public void addTenBenhButtonActionListener(ActionListener listener){
+		tenbenhButton.addActionListener(listener);
+	}
+	public void addLuongYChuaNoButtonActionListener(ActionListener listener){
+		luongychuanoButton.addActionListener(listener);
+	}
+	public void addBaiThuocChuaBenhButtonActionListener(ActionListener listener){
+		baithuocchuabenhButton.addActionListener(listener);
+	}
+	
+	//them listener cho cac nut ve luong y
+	public void addTenLuongYButtonActionListener(ActionListener listener){
+		tenluongyButton.addActionListener(listener);
+	}
+	public void addKhuVucLuongYButtonActionListener(ActionListener listener){
+		khuvucluongyButton.addActionListener(listener);
+	}
+	public void addBenhCanChuaLuongYButtonActionListener(ActionListener listener){
+		benhcanchualuongyButton.addActionListener(listener);
+	}
+	public void addNhaThuocDangLamButtonActionListener(ActionListener listener){
+		nhathuocdanglamButton.addActionListener(listener);
+	}
+	
+	//them listener cho cac nut ve nha thuoc
+	public void addTenNhaThuocButtonActionListener(ActionListener listener){
+		tennhathuocButton.addActionListener(listener);
+	}
+	public void addKhuVucNhaThuocButtonActionListener(ActionListener listener){
+		khuvucnhathuocButton.addActionListener(listener);
+	}
+	public void addBaiThuocCanMuaButtonActionListener(ActionListener listener){
+		baithuoccanmuaButton.addActionListener(listener);
+	}
+	public void addLuongYMuonChuaButtonActionListener(ActionListener listener){
+		luongymuonchuaButton.addActionListener(listener);
+	}
+	
+	//them listener cho cac nut OK
 	public void addOkButtonActionListener(ActionListener listener){
 		okButton.addActionListener(listener);
 	}
@@ -610,6 +937,16 @@ public class ChatWindow extends JFrame {
 		for (String res : result) {
 			labelListModel.addElement(getResultLabel(res));
 		}
+	}
+	
+	public void reset(){
+		chatList.removeAll();
+		
+		logs = new ArrayList<JPanel>();
+		chatList.repaint();
+		int height = (int)chatList.getPreferredSize().getHeight();
+		System.out.println(height);
+		scrollAskPane.getViewport().setViewPosition(new Point(0,height));
 	}
 	
 	private JLabel getResultLabel(String s){
