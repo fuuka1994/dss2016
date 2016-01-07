@@ -6,7 +6,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Benh;
 import model.LuongY;
+import model.NhaThuoc;
 
 public class DbLuongY extends connect {
 	public List<LuongY> loadTen(String keyWord) throws SQLException{
@@ -77,5 +79,51 @@ public class DbLuongY extends connect {
 		return luongy;
 	}
 	
+	
+	public List<NhaThuoc> loadNhaThuocTuLuongY(String keyWord) throws SQLException{
+		List<NhaThuoc> list = new ArrayList<NhaThuoc>();
+		connect con = new connect();
+		con.ketNoi();
+		String word = "N%"+keyWord+"%";
+		word = word.toLowerCase();
+		String command = "SELECT * FROM tbl_luongynhathuoc INNER JOIN tbl_nhathuoc ON tbl_luongynhathuoc.manhathuoc = tbl_vithuoc.manhathuoc INNER JOIN tbl_luongy ON tbl_luongynhathuoc.maluongy = tbl_luongy.maluongy where Lower(TenLuongY) like ?";
+		PreparedStatement ps = connection.prepareStatement(command);
+		ps.setString(1,word);
+		ResultSet rs = ps.executeQuery();
+		while(rs.next()){
+			NhaThuoc nt = new NhaThuoc();
+			nt.setMaNhaThuoc(rs.getInt(1));
+			nt.setTenNhaThuoc(rs.getString("TenNhaThuoc"));
+			nt.setThongTin(rs.getString("ThongTin"));
+			nt.setDiaChi(rs.getString("DiaChi"));
+			nt.setSoLuotTruyCap(rs.getInt(5));
+			
+			list.add(nt);		}
+		return list;	
+	}
+	public List<Benh> loadBenhTuLuongY(String keyWord) throws SQLException{
+		List<Benh> list = new ArrayList<Benh>();
+		connect con = new connect();
+		con.ketNoi();
+		String word = "N%"+keyWord+"%";
+		word = word.toLowerCase();
+		String command = "SELECT * FROM tbl_luongybenh INNER JOIN tbl_luongy ON tbl_luongybenh.maluongy = tbl_luongy.maluongy INNER JOIN tbl_benh ON tbl_luongybenh.mabenh = tbl_benh.mabenh where Lower(TenLuongY) like ?";
+		PreparedStatement ps = connection.prepareStatement(command);
+		ps.setString(1,word);
+		ResultSet rs = ps.executeQuery();
+		while(rs.next()){
+			Benh b = new Benh();
+			b.setMaBenh(rs.getInt(1));
+			b.setTenBenh(rs.getString("TenBenh"));
+			b.setThongTin(rs.getString("Thongtin"));
+			b.setTrieuChung(rs.getString("TrieuChung"));
+			b.setKiengKy(rs.getString("KiengKy"));
+			b.setSoLuotTruyCap(rs.getInt(6));
+			
+			list.add(b);
+		}
+		return list;
+		
+	}
 	
 }

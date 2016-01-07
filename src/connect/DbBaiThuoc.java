@@ -80,6 +80,77 @@ public class DbBaiThuoc extends connect {
 		return baithuoc;
 	}
 	
+	public List<ViThuoc> loadViThuocTuBaiThuoc(String keyWord) throws SQLException{
+		List<ViThuoc> list = new ArrayList<ViThuoc>();
+		connect con = new connect();
+		con.ketNoi();
+		String word = "N%"+keyWord+"%";
+		word = word.toLowerCase();
+		String command = "SELECT * FROM tbl_baithuocvithuoc INNER JOIN tbl_vithuoc ON tbl_baithuoccaythuoc.mavithuoc = tbl_vithuoc.mavithuoc INNER JOIN tbl_baithuoc ON tbl_baithuoccaythuoc.mabaithuoc = tbl_caythuoc.mabaithuoc where Lower(TenBaiThuoc) like ?";
+		PreparedStatement ps = connection.prepareStatement(command);
+		ps.setString(1,word);
+		ResultSet rs = ps.executeQuery();
+		while(rs.next()){
+			ViThuoc bt = new ViThuoc();
+			bt.setMaViThuoc(rs.getInt(1));
+			bt.setTenViThuoc(rs.getString("TENVITHUOC"));
+			bt.setChuTri(rs.getString("CHUTRI"));
+			bt.setKiengKy(rs.getString("KIENGKY"));
+			bt.setTinhChat(rs.getString("TINHCHAT"));
+			bt.setSoLuotTruyCap(rs.getInt(6));
+			
+			list.add(bt);
+		}
+		return list;
+	}
+	
+	public List<NhaThuoc> loadNhaThuocTuBaiThuoc(String keyWord) throws SQLException{
+		List<NhaThuoc> list = new ArrayList<NhaThuoc>();
+		connect con = new connect();
+		con.ketNoi();
+		String word = "N%"+keyWord+"%";
+		word = word.toLowerCase();
+		String command = "SELECT * FROM tbl_nhathuocbaithuoc INNER JOIN tbl_nhathuoc ON tbl_baithuoccaythuoc.nhathuoc = tbl_vithuoc.nhathuoc INNER JOIN tbl_baithuoc ON tbl_nhathuocbaithuoc.mabaithuoc = tbl_caythuoc.mabaithuoc where Lower(TenBaiThuoc) like ?";
+		PreparedStatement ps = connection.prepareStatement(command);
+		ps.setString(1,word);
+		ResultSet rs = ps.executeQuery();
+		while(rs.next()){
+			NhaThuoc bt = new NhaThuoc();
+			bt.setMaNhaThuoc(rs.getInt(1));
+			bt.setTenNhaThuoc(rs.getString("TENNHATHUOC"));
+			bt.setThongTin(rs.getString("THONGTIN"));
+			bt.setDiaChi(rs.getString("DIACHI"));
+			bt.setSoLuotTruyCap(rs.getInt(5));
+			
+			list.add(bt);
+		}
+		return list;	
+	}
+	
+	public List<Benh> loadBenhTuBaiThuoc(String keyWord) throws SQLException{
+		List<Benh> list = new ArrayList<Benh>();
+		connect con = new connect();
+		con.ketNoi();
+		String word = "N%"+keyWord+"%";
+		word = word.toLowerCase();
+		String command = "SELECT * FROM tbl_baithuocbenh INNER JOIN tbl_baithuoc ON tbl_baithuocbenh.mabaithuoc = tbl_baithuoc.mabaithuoc INNER JOIN tbl_benh ON tbl_baithuocbenh.mabenh = tbl_benh.mabenh where Lower(TenBaiThuoc) like ?";
+		PreparedStatement ps = connection.prepareStatement(command);
+		ps.setString(1,word);
+		ResultSet rs = ps.executeQuery();
+		while(rs.next()){
+			Benh bt = new Benh();
+			bt.setMaBenh(rs.getInt(1));
+			bt.setTenBenh(rs.getString("TENBENH"));
+			bt.setThongTin(rs.getString("THONGTIN"));
+			bt.setTrieuChung(rs.getString("TRIEUCHUNG"));
+			bt.setKiengKy(rs.getString("KIENGKY"));
+			bt.setSoLuotTruyCap(rs.getInt(6));
+			
+			list.add(bt);
+		}
+		return list;
+		
+	}
 	
 	
 	

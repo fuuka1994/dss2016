@@ -11,6 +11,7 @@ import com.sun.swing.internal.plaf.basic.resources.basic;
 import model.BaiThuoc;
 import model.BaiViet;
 import model.Benh;
+import model.LuongY;
 
 public class DbBenh extends connect {
 	public List<Benh> loadTen(String keyWord) throws SQLException{
@@ -84,6 +85,55 @@ public class DbBenh extends connect {
 			}
 		}
 		return benh;
+	}
+	
+	public List<BaiThuoc> loadBaiThuocTuBenh(String keyWord) throws SQLException{
+		List<BaiThuoc> list = new ArrayList<BaiThuoc>();
+		connect con = new connect();
+		con.ketNoi();
+		String word = "N%"+keyWord+"%";
+		word = word.toLowerCase();
+		String command = "SELECT * FROM tbl_baithuocbenh INNER JOIN tbl_baithuoc ON tbl_baithuocbenh.mabaithuoc = tbl_baithuoc.mabaithuoc INNER JOIN tbl_benh ON tbl_baithuocbenh.mabenh = tbl_benh.mabenh where Lower(TenBenh) like ?";
+		PreparedStatement ps = connection.prepareStatement(command);
+		ps.setString(1,word);
+		ResultSet rs = ps.executeQuery();
+		while(rs.next()){
+			BaiThuoc bt = new BaiThuoc();
+			bt.setMaBaiThuoc(rs.getInt(1));
+			bt.setTenBaiThuoc(rs.getString("TenBaiThuoc"));
+			bt.setThongTin(rs.getString("ThongTin"));
+			bt.setCachDung(rs.getString("CachDung"));
+			bt.setSoLuotTruyCap(rs.getInt(5));
+			
+			list.add(bt);
+		}
+		return list;
+		
+	}
+	public List<LuongY> loadLuongYTuBenh(String keyWord) throws SQLException{
+		List<LuongY> list = new ArrayList<LuongY>();
+		connect con = new connect();
+		con.ketNoi();
+		String word = "N%"+keyWord+"%";
+		word = word.toLowerCase();
+		String command = "SELECT * FROM tbl_luongybenh INNER JOIN tbl_luongy ON tbl_luongybenh.maluongy = tbl_luongy.maluongy INNER JOIN tbl_benh ON tbl_luongybenh.mabenh = tbl_benh.mabenh where Lower(TenBenh) like ?";
+		PreparedStatement ps = connection.prepareStatement(command);
+		ps.setString(1,word);
+		ResultSet rs = ps.executeQuery();
+		while(rs.next()){
+			LuongY ly = new LuongY();
+			ly.setMaLuongY(rs.getInt(1));
+			ly.setTen(rs.getString("Ten"));
+			ly.setThongTin(rs.getString("ThongTin"));
+			ly.setsDT(rs.getString("SDT"));
+			ly.setTrangThai(rs.getInt(5));
+			ly.setSoLuotTruyCap(rs.getInt(6));
+
+			
+			list.add(ly);
+		}
+		return list;
+		
 	}
 	
 }

@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.BaiThuoc;
 import model.Benh;
 import model.NhaThuoc;
 import model.ViThuoc;
@@ -83,5 +84,26 @@ public class DbViThuoc extends connect {
 		}
 		return vithuoc;
 	}
-	
+	public List<BaiThuoc> loadViThuocTuBaiThuoc(String keyWord) throws SQLException{
+		List<BaiThuoc> list = new ArrayList<BaiThuoc>();
+		connect con = new connect();
+		con.ketNoi();
+		String word = "N%"+keyWord+"%";
+		word = word.toLowerCase();
+		String command = "SELECT * FROM tbl_baithuocvithuoc INNER JOIN tbl_vithuoc ON tbl_baithuoccaythuoc.mavithuoc = tbl_vithuoc.mavithuoc INNER JOIN tbl_baithuoc ON tbl_baithuoccaythuoc.mabaithuoc = tbl_caythuoc.mabaithuoc where Lower(TenViThuoc) like ?";
+		PreparedStatement ps = connection.prepareStatement(command);
+		ps.setString(1,word);
+		ResultSet rs = ps.executeQuery();
+		while(rs.next()){
+			BaiThuoc bt = new BaiThuoc();
+			bt.setMaBaiThuoc(rs.getInt(1));
+			bt.setTenBaiThuoc(rs.getString("TenBaiThuoc"));
+			bt.setThongTin(rs.getString("ThongTin"));
+			bt.setCachDung(rs.getString("CachDung"));
+			bt.setSoLuotTruyCap(rs.getInt(5));
+			
+			list.add(bt);
+		}
+		return list;
+	}
 }
