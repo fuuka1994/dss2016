@@ -2,9 +2,12 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -22,6 +25,7 @@ public class ChatController {
 	
 	private String keyword;
 	private int type;
+	private int pos;
 	
 	private List<String> listtentruyenvao;
 	
@@ -83,10 +87,13 @@ public class ChatController {
 		
 		view.addOkButtonActionListener(getOkActionListener());
 		
+		view.addResultListMouseListener(getResultListMouseAdapter());
+		
 		view.setVisible(true);
 		
 		keyword = "";
 		type = 0;
+		pos = 0;
 		
 		listtentruyenvao = new ArrayList<String>();
 		
@@ -197,7 +204,7 @@ public class ChatController {
 	}
 	
 	//cac listener baithuoc
-	private ActionListener getTenBaiThuocActionListener(){
+	private ActionListener getTenBaiThuocActionListener(){		//type = 1
 		ActionListener listener = new ActionListener() {
 			
 			@Override
@@ -205,12 +212,13 @@ public class ChatController {
 				view.generatePatientSentence("T\u00f4i mu\u1ed1n xem th\u00f4ng tin b\u00e0i thu\u1ed1c theo t\u00ean.");
 				view.generateDoctorField("H\u00e3y nh\u1eadp t\u00ean b\u00e0i thu\u1ed1c");
 				view.refreshLog();
+				type = 1;
 			}
 		};
 		return listener;
 	}
 	
-	private ActionListener getBenhCanChuaActionListener(){
+	private ActionListener getBenhCanChuaActionListener(){ 		//type = 2
 		ActionListener listener = new ActionListener() {
 			
 			@Override
@@ -218,12 +226,13 @@ public class ChatController {
 				view.generatePatientSentence("T\u00f4i mu\u1ed1n xem th\u00f4ng tin b\u00e0i thu\u1ed1c theo b\u1ec7nh c\u1ea7n ch\u1eefa.");
 				view.generateDoctorField("H\u00e3y nh\u1eadp t\u00ean b\u1ec7nh");
 				view.refreshLog();
+				type = 2;
 			}
 		};
 		return listener;
 	}
 	
-	private ActionListener getViThuocTrongBaiActionListener(){
+	private ActionListener getViThuocTrongBaiActionListener(){	//type = 3
 		ActionListener listener = new ActionListener() {
 			
 			@Override
@@ -231,12 +240,13 @@ public class ChatController {
 				view.generatePatientSentence("T\u00f4i mu\u1ed1n xem th\u00f4ng tin b\u00e0i thu\u1ed1c theo v\u1ecb thu\u1ed1c trong b\u00e0i.");
 				view.generateDoctorField("H\u00e3y nh\u1eadp t\u00ean v\u1ecb thu\u1ed1c");
 				view.refreshLog();
+				type = 3;
 			}
 		};
 		return listener;
 	}
 	
-	private ActionListener getNhaThuocCoBanActionListener(){
+	private ActionListener getNhaThuocCoBanActionListener(){	//type = 4
 		ActionListener listener = new ActionListener() {
 			
 			@Override
@@ -244,13 +254,14 @@ public class ChatController {
 				view.generatePatientSentence("T\u00f4i mu\u1ed1n xem th\u00f4ng tin b\u00e0i thu\u1ed1c theo nh\u00e0 thu\u1ed1c c\u00f3 b\u00e1n.");
 				view.generateDoctorField("H\u00e3y nh\u1eadp t\u00ean nh\u00e0 thu\u1ed1c");
 				view.refreshLog();
+				type = 4;
 			}
 		};
 		return listener;
 	}
 	
 	//cac listener vi thuoc
-	private ActionListener getTenViThuocActionListener(){
+	private ActionListener getTenViThuocActionListener(){		//type = 5
 		ActionListener listener = new ActionListener() {
 			
 			@Override
@@ -258,12 +269,13 @@ public class ChatController {
 				view.generatePatientSentence("T\u00f4i mu\u1ed1n xem th\u00f4ng tin v\u1ecb thu\u1ed1c theo t\u00ean v\u1ecb thu\u1ed1c.");
 				view.generateDoctorField("H\u00e3y nh\u1eadp t\u00ean v\u1ecb thu\u1ed1c");
 				view.refreshLog();
+				type = 5;
 			}
 		};
 		return listener;
 	}
 
-	private ActionListener getBaiThuocCoViNayActionListener(){
+	private ActionListener getBaiThuocCoViNayActionListener(){	//type = 6
 		ActionListener listener = new ActionListener() {
 			
 			@Override
@@ -271,13 +283,14 @@ public class ChatController {
 				view.generatePatientSentence("T\u00f4i mu\u1ed1n xem th\u00f4ng tin v\u1ecb thu\u1ed1c theo b\u00e0i thu\u1ed1c c\u00f3 v\u1ecb n\u00e0y.");
 				view.generateDoctorField("H\u00e3y nh\u1eadp t\u00ean b\u00e0i thu\u1ed1c");
 				view.refreshLog();
+				type = 6;
 			}
 		};
 		return listener;
 	}
 	
 	//cac listener benh
-	private ActionListener getTenBenhActionListener(){
+	private ActionListener getTenBenhActionListener(){			//type = 7
 		ActionListener listener = new ActionListener() {
 			
 			@Override
@@ -285,12 +298,13 @@ public class ChatController {
 				view.generatePatientSentence("T\u00f4i mu\u1ed1n xem th\u00f4ng tin b\u1ec7nh theo t\u00ean b\u1ec7nh.");
 				view.generateDoctorField("H\u00e3y nh\u1eadp t\u00ean b\u1ec7nh");
 				view.refreshLog();
+				type = 7;
 			}
 		};
 		return listener;
 	}
 	
-	private ActionListener getLuongYChuaNoActionListener(){
+	private ActionListener getLuongYChuaNoActionListener(){		//type = 8
 		ActionListener listener = new ActionListener() {
 			
 			@Override
@@ -298,12 +312,13 @@ public class ChatController {
 				view.generatePatientSentence("T\u00f4i mu\u1ed1n xem th\u00f4ng tin b\u1ec7nh theo t\u00ean l\u01b0\u01a1ng y ch\u1eefa n\u00f3.");
 				view.generateDoctorField("H\u00e3y nh\u1eadp t\u00ean l\u01b0\u01a1ng y");
 				view.refreshLog();
+				type = 8;
 			}
 		};
 		return listener;
 	}
 	
-	private ActionListener getBaiThuocChuaBenhActionListener(){
+	private ActionListener getBaiThuocChuaBenhActionListener(){	//type = 9
 		ActionListener listener = new ActionListener() {
 			
 			@Override
@@ -311,13 +326,14 @@ public class ChatController {
 				view.generatePatientSentence("T\u00f4i mu\u1ed1n xem th\u00f4ng tin b\u1ec7nh theo t\u00ean b\u00e0i thu\u1ed1c ch\u1eefa b\u1ec7nh.");
 				view.generateDoctorField("H\u00e3y nh\u1eadp t\u00ean b\u00e0i thu\u1ed1c");
 				view.refreshLog();
+				type = 9;
 			}
 		};
 		return listener;
 	}
 	
 	//cac listener luong y
-	private ActionListener getTenLuongYActionListener(){
+	private ActionListener getTenLuongYActionListener(){		//type = 10
 		ActionListener listener = new ActionListener() {
 			
 			@Override
@@ -325,12 +341,13 @@ public class ChatController {
 				view.generatePatientSentence("T\u00f4i mu\u1ed1n xem th\u00f4ng tin l\u01b0\u01a1ng y theo t\u00ean l\u01b0\u01a1ng y.");
 				view.generateDoctorField("H\u00e3y nh\u1eadp t\u00ean l\u01b0\u01a1ng y");
 				view.refreshLog();
+				type = 10;
 			}
 		};
 		return listener;
 	}
 	
-	private ActionListener getKhuVucLuongYActionListener(){
+	private ActionListener getKhuVucLuongYActionListener(){		//type = 11
 		ActionListener listener = new ActionListener() {
 			
 			@Override
@@ -338,12 +355,13 @@ public class ChatController {
 				view.generatePatientSentence("T\u00f4i mu\u1ed1n xem th\u00f4ng tin l\u01b0\u01a1ng y theo t\u00ean khu v\u1ef1c.");
 				view.generateDoctorField("H\u00e3y nh\u1eadp khu v\u1ef1c");
 				view.refreshLog();
+				type = 11;
 			}
 		};
 		return listener;
 	}
 	
-	private ActionListener getBenhCanChuaLuongYActionListener(){
+	private ActionListener getBenhCanChuaLuongYActionListener(){//type = 12
 		ActionListener listener = new ActionListener() {
 			
 			@Override
@@ -351,12 +369,13 @@ public class ChatController {
 				view.generatePatientSentence("T\u00f4i mu\u1ed1n xem th\u00f4ng tin l\u01b0\u01a1ng y theo b\u1ec7nh c\u1ea7n ch\u1eefa.");
 				view.generateDoctorField("H\u00e3y nh\u1eadp t\u00ean b\u1ec7nh");
 				view.refreshLog();
+				type = 12;
 			}
 		};
 		return listener;
 	}
 	
-	private ActionListener getNhaThuocDangLamActionListener(){
+	private ActionListener getNhaThuocDangLamActionListener(){	//type = 13
 		ActionListener listener = new ActionListener() {
 			
 			@Override
@@ -364,13 +383,14 @@ public class ChatController {
 				view.generatePatientSentence("T\u00f4i mu\u1ed1n xem th\u00f4ng tin l\u01b0\u01a1ng y theo nh\u00e0 thu\u1ed1c \u0111ang l\u00e0m.");
 				view.generateDoctorField("H\u00e3y nh\u1eadp t\u00ean nh\u00e0 thu\u1ed1c");
 				view.refreshLog();
+				type = 13;
 			}
 		};
 		return listener;
 	}
 	
 	//cac listener nha thuoc
-	private ActionListener getTenNhaThuocActionListener(){
+	private ActionListener getTenNhaThuocActionListener(){		//type = 14
 		ActionListener listener = new ActionListener() {
 			
 			@Override
@@ -378,12 +398,13 @@ public class ChatController {
 				view.generatePatientSentence("T\u00f4i mu\u1ed1n xem th\u00f4ng tin nh\u00e0 thu\u1ed1c theo t\u00ean nh\u00e0 thu\u1ed1c.");
 				view.generateDoctorField("H\u00e3y nh\u1eadp t\u00ean nh\u00e0 thu\u1ed1c");
 				view.refreshLog();
+				type = 14;
 			}
 		};
 		return listener;
 	}
 	
-	private ActionListener getBaiThuocCanMuaActionListener(){
+	private ActionListener getBaiThuocCanMuaActionListener(){	//type = 15
 		ActionListener listener = new ActionListener() {
 			
 			@Override
@@ -391,12 +412,13 @@ public class ChatController {
 				view.generatePatientSentence("T\u00f4i mu\u1ed1n xem th\u00f4ng tin nh\u00e0 thu\u1ed1c theo b\u00e0i thu\u1ed1c c\u1ea7n mua.");
 				view.generateDoctorField("H\u00e3y nh\u1eadp t\u00ean b\u00e0i thu\u1ed1c");
 				view.refreshLog();
+				type = 15;
 			}
 		};
 		return listener;
 	}
 	
-	private ActionListener getLuongYMuonChuaActionListener(){
+	private ActionListener getLuongYMuonChuaActionListener(){	//type = 16
 		ActionListener listener = new ActionListener() {
 			
 			@Override
@@ -404,12 +426,13 @@ public class ChatController {
 				view.generatePatientSentence("T\u00f4i mu\u1ed1n xem th\u00f4ng tin nh\u00e0 thu\u1ed1c theo l\u01b0\u01a1ng Y mu\u1ed1n ch\u1eefa.");
 				view.generateDoctorField("H\u00e3y nh\u1eadp t\u00ean l\u01b0\u01a1ng y");
 				view.refreshLog();
+				type = 16;
 			}
 		};
 		return listener;
 	}
 	
-	private ActionListener getKhuVucNhaThuocActionListener(){
+	private ActionListener getKhuVucNhaThuocActionListener(){	//type = 17
 		ActionListener listener = new ActionListener() {
 			
 			@Override
@@ -417,13 +440,14 @@ public class ChatController {
 				view.generatePatientSentence("T\u00f4i mu\u1ed1n xem th\u00f4ng tin nh\u00e0 thu\u1ed1c y theo khu v\u1ef1c nh\u00e0 thu\u1ed1c.");
 				view.generateDoctorField("H\u00e3y nh\u1eadp khu v\u1ef1c");
 				view.refreshLog();
+				type = 17;
 			}
 		};
 		return listener;
 	}
 	
 	//cac listener nha thuoc
-	private ActionListener getDanhYActionListener(){
+	private ActionListener getDanhYActionListener(){			//type = 18
 		ActionListener listener = new ActionListener() {
 			
 			@Override
@@ -431,24 +455,27 @@ public class ChatController {
 				view.generatePatientSentence("T\u00f4i mu\u1ed1n xem th\u00f4ng tin danh y.");
 				view.generateDoctorField("H\u00e3y nh\u1eadp t\u00ean danh y");
 				view.refreshLog();
+				type = 18;
 			}
 		};
 		return listener;
 	}
 	
-	private ActionListener getKhacActionListener(){
-		ActionListener listener = new ActionListener() {
+	private ActionListener getKhacActionListener(){				//type = 19
+		ActionListener listener = new ActionListener() {		
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				view.generatePatientSentence("T\u00f4i mu\u1ed1n xem lo\u1ea1i th\u00f4ng tin kh\u00e1c.");
 				view.generateDoctorField("H\u00e3y nh\u1eadp t\u1eeb kh\u00f3a");
 				view.refreshLog();
+				type = 19;
 			}
 		};
 		return listener;
 	}
 	
+	//listener cho nut ok cua form
 	private ActionListener getOkActionListener(){
 		ActionListener listener = new ActionListener() {
 			
@@ -466,6 +493,21 @@ public class ChatController {
 			}
 		};
 		return listener;
+	}
+	
+	//mouse adapter cho list
+	private MouseAdapter getResultListMouseAdapter(){
+		MouseAdapter adapter = new MouseAdapter() {
+			public void mouseClicked(MouseEvent mouseEvent) {
+				JList theList = (JList) mouseEvent.getSource();
+				if (mouseEvent.getClickCount() >= 2) {
+					pos = theList.locationToIndex(mouseEvent.getPoint());
+					view.generatePatientSentence("T\u00f4i mu\u1ed1n xem chi ti\u1ebft '" + listtentruyenvao.get(pos) + "'.");
+					view.generateDetailList("Test tieu de - doi sau khi co dl", "test noi dung", listtentruyenvao);
+				}
+			}
+		};
+		return adapter;
 	}
 	
 	private boolean checkAllSpace(String s){

@@ -6,7 +6,6 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Point;
-import java.awt.Rectangle;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.util.ArrayList;
@@ -39,7 +38,7 @@ public class ChatWindow extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private static final Font BIGGER_FONT = new Font(Font.SERIF, Font.PLAIN, 40);
+	private static final Font BIGGER_FONT = new Font(Font.SERIF, Font.PLAIN, 30);
 	private static final Font SMALLER_FONT = new Font(Font.SERIF, Font.PLAIN, 20);
 	private static final Color marked = Color.RED;
 	private int bgValue = Integer.parseInt("FFFFFF", 16);
@@ -852,6 +851,60 @@ public class ChatWindow extends JFrame {
 		text.setLineWrap(true);
 		text.setWrapStyleWord(true);
 		
+		textPanel.add(text);
+		
+		setListOfResult(result);
+		JScrollPane resultScroll = new JScrollPane();
+//		resultScroll.setBackground(fgColor2);
+		resultScroll.setPreferredSize(new Dimension(480, 150));
+		resultScroll.setViewportView(resultList);
+		textPanel.add(resultScroll);
+		
+		panelDoctor.add(bubble, BorderLayout.CENTER);
+		logs.add(panelDoctor);
+	}
+	
+	public void generateDetailList(String title, String sentence, List<String> result){
+		JPanel panelDoctor = new JPanel(new BorderLayout());
+		panelDoctor.setOpaque(false);
+		
+		ImageLabel doctorLabel = new ImageLabel(doctorImg, 60, 45);
+		panelDoctor.add(doctorLabel, BorderLayout.WEST);
+		
+		JPanel bubble = new JPanel(new BorderLayout());
+		bubble.setOpaque(false);
+		
+		ImageLabel topLabel = new ImageLabel(topBubbleImg, 500, 25);
+		ImageLabel bottomLabel = new ImageLabel(bottomBubbleImg, 500, 15);
+		
+		JPanel textPanel = new JPanel(new WrapLayout());
+		textPanel.setBackground(fgColor2);
+		
+		bubble.add(topLabel, BorderLayout.NORTH);
+		
+		bubble.add(bottomLabel, BorderLayout.SOUTH);
+		
+		bubble.add(textPanel, BorderLayout.CENTER);
+		
+		JTextArea tit = new JTextArea(title);
+		tit.setFont(BIGGER_FONT);
+		tit.setForeground(bgColor);
+		tit.setOpaque(false);
+		tit.setEditable(false);
+		tit.setColumns(34);
+		tit.setLineWrap(true);
+		tit.setWrapStyleWord(true);
+		
+		JTextArea text = new JTextArea(sentence);
+		text.setFont(SMALLER_FONT);
+		text.setForeground(bgColor);
+		text.setOpaque(false);
+		text.setEditable(false);
+		text.setColumns(34);
+		text.setLineWrap(true);
+		text.setWrapStyleWord(true);
+		
+		textPanel.add(tit);
 		textPanel.add(text);
 		
 		setListOfResult(result);
