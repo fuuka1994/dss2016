@@ -38,7 +38,7 @@ public class ChatWindow extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private static final Font BIGGER_FONT = new Font(Font.SERIF, Font.PLAIN, 30);
+	private static final Font BIGGER_FONT = new Font(Font.SERIF, Font.PLAIN, 25);
 	private static final Font SMALLER_FONT = new Font(Font.SERIF, Font.PLAIN, 20);
 	private static final Color marked = Color.RED;
 	private int bgValue = Integer.parseInt("FFFFFF", 16);
@@ -865,11 +865,11 @@ public class ChatWindow extends JFrame {
 	}
 	
 	public void generateDetailList(String title, String sentence, List<String> result){
-		JPanel panelDoctor = new JPanel(new BorderLayout());
-		panelDoctor.setOpaque(false);
+		JPanel panelDetail = new JPanel(new BorderLayout());
+		panelDetail.setOpaque(false);
 		
 		ImageLabel doctorLabel = new ImageLabel(doctorImg, 60, 45);
-		panelDoctor.add(doctorLabel, BorderLayout.WEST);
+		panelDetail.add(doctorLabel, BorderLayout.WEST);
 		
 		JPanel bubble = new JPanel(new BorderLayout());
 		bubble.setOpaque(false);
@@ -891,7 +891,7 @@ public class ChatWindow extends JFrame {
 		tit.setForeground(bgColor);
 		tit.setOpaque(false);
 		tit.setEditable(false);
-		tit.setColumns(34);
+		tit.setColumns(24);
 		tit.setLineWrap(true);
 		tit.setWrapStyleWord(true);
 		
@@ -914,8 +914,8 @@ public class ChatWindow extends JFrame {
 		resultScroll.setViewportView(resultList);
 		textPanel.add(resultScroll);
 		
-		panelDoctor.add(bubble, BorderLayout.CENTER);
-		logs.add(panelDoctor);
+		panelDetail.add(bubble, BorderLayout.CENTER);
+		logs.add(panelDetail);
 	}
 	
 	public void refreshLog() {

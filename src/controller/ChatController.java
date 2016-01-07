@@ -503,7 +503,8 @@ public class ChatController {
 				if (mouseEvent.getClickCount() >= 2) {
 					pos = theList.locationToIndex(mouseEvent.getPoint());
 					view.generatePatientSentence("T\u00f4i mu\u1ed1n xem chi ti\u1ebft '" + listtentruyenvao.get(pos) + "'.");
-					view.generateDetailList("Test tieu de - doi sau khi co dl", "test noi dung", listtentruyenvao);
+					view.generateDetailList("Test tieu de - doi sau khi co dl dl ldld ld d d d d ð d d d d", "test noi dung", listtentruyenvao);
+					view.refreshLog();
 				}
 			}
 		};
