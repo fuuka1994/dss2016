@@ -4,20 +4,20 @@ public class Benh {
 	private int maBenh;
 	private String tenBenh;
 	private String thongTin;
-	private int thuocNhomBenh;
 	private String trieuChung;
+	private String kiengKy;
 	private int soLuotTruyCap;
 	public Benh() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Benh(int maBenh, String tenBenh, String thongTin, int thuocNhomBenh, String trieuChung, int soLuotTruyCap) {
+	public Benh(int maBenh, String tenBenh, String thongTin, String trieuChung, String kiengKy, int soLuotTruyCap) {
 		super();
 		this.maBenh = maBenh;
 		this.tenBenh = tenBenh;
 		this.thongTin = thongTin;
-		this.thuocNhomBenh = thuocNhomBenh;
 		this.trieuChung = trieuChung;
+		this.kiengKy = kiengKy;
 		this.soLuotTruyCap = soLuotTruyCap;
 	}
 	public int getMaBenh() {
@@ -38,17 +38,17 @@ public class Benh {
 	public void setThongTin(String thongTin) {
 		this.thongTin = thongTin;
 	}
-	public int getThuocNhomBenh() {
-		return thuocNhomBenh;
-	}
-	public void setThuocNhomBenh(int thuocNhomBenh) {
-		this.thuocNhomBenh = thuocNhomBenh;
-	}
 	public String getTrieuChung() {
 		return trieuChung;
 	}
 	public void setTrieuChung(String trieuChung) {
 		this.trieuChung = trieuChung;
+	}
+	public String getKiengKy() {
+		return kiengKy;
+	}
+	public void setKiengKy(String kiengKy) {
+		this.kiengKy = kiengKy;
 	}
 	public int getSoLuotTruyCap() {
 		return soLuotTruyCap;
@@ -58,9 +58,10 @@ public class Benh {
 	}
 	@Override
 	public String toString() {
-		return "Benh [maBenh=" + maBenh + ", tenBenh=" + tenBenh + ", thongTin=" + thongTin + ", thuocNhomBenh="
-				+ thuocNhomBenh + ", trieuChung=" + trieuChung + ", soLuotTruyCap=" + soLuotTruyCap + "]";
+		return "Benh [maBenh=" + maBenh + ", tenBenh=" + tenBenh + ", thongTin=" + thongTin + ", trieuChung="
+				+ trieuChung + ", kiengKy=" + kiengKy + ", soLuotTruyCap=" + soLuotTruyCap + "]";
 	}
+	
 	
 	
 	

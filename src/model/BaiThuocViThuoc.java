@@ -1,18 +1,18 @@
 package model;
 
-public class BaiThuocCayThuoc {
+public class BaiThuocViThuoc {
 	private int id;
-	private int maCayThuoc;
+	private int maViThuoc;
 	private int maBaiThuoc;
 	private int khoiLuong;
-	public BaiThuocCayThuoc() {
+	public BaiThuocViThuoc() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public BaiThuocCayThuoc(int id, int maCayThuoc, int maBaiThuoc, int khoiLuong) {
+	public BaiThuocViThuoc(int id, int maCayThuoc, int maBaiThuoc, int khoiLuong) {
 		super();
 		this.id = id;
-		this.maCayThuoc = maCayThuoc;
+		this.maViThuoc = maCayThuoc;
 		this.maBaiThuoc = maBaiThuoc;
 		this.khoiLuong = khoiLuong;
 	}
@@ -23,10 +23,10 @@ public class BaiThuocCayThuoc {
 		this.id = id;
 	}
 	public int getMaCayThuoc() {
-		return maCayThuoc;
+		return maViThuoc;
 	}
-	public void setMaCayThuoc(int maCayThuoc) {
-		this.maCayThuoc = maCayThuoc;
+	public void setMaViThuoc(int maViThuoc) {
+		this.maViThuoc = maViThuoc;
 	}
 	public int getMaBaiThuoc() {
 		return maBaiThuoc;
@@ -42,7 +42,7 @@ public class BaiThuocCayThuoc {
 	}
 	@Override
 	public String toString() {
-		return "BaiThuocCayThuoc [id=" + id + ", maCayThuoc=" + maCayThuoc + ", maBaiThuoc=" + maBaiThuoc
+		return "BaiThuocCayThuoc [id=" + id + ", maCayThuoc=" + maViThuoc + ", maBaiThuoc=" + maBaiThuoc
 				+ ", khoiLuong=" + khoiLuong + "]";
 	}
 	

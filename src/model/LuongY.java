@@ -2,20 +2,22 @@ package model;
 
 public class LuongY {
 	private int maLuongY;
-	private String tenLuongY;
+	private String ten;
 	private String thongTin;
-	private String SDT;
+	private String sDT;
+	private int trangThai;
 	private int soLuotTruyCap;
 	public LuongY() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public LuongY(int maLuongY, String tenLuongY, String thongTin, String sDT, int soLuotTruyCap) {
+	public LuongY(int maLuongY, String ten, String thongTin, String sDT, int trangThai, int soLuotTruyCap) {
 		super();
 		this.maLuongY = maLuongY;
-		this.tenLuongY = tenLuongY;
+		this.ten = ten;
 		this.thongTin = thongTin;
-		SDT = sDT;
+		this.sDT = sDT;
+		this.trangThai = trangThai;
 		this.soLuotTruyCap = soLuotTruyCap;
 	}
 	public int getMaLuongY() {
@@ -24,11 +26,11 @@ public class LuongY {
 	public void setMaLuongY(int maLuongY) {
 		this.maLuongY = maLuongY;
 	}
-	public String getTenLuongY() {
-		return tenLuongY;
+	public String getTen() {
+		return ten;
 	}
-	public void setTenLuongY(String tenLuongY) {
-		this.tenLuongY = tenLuongY;
+	public void setTen(String ten) {
+		this.ten = ten;
 	}
 	public String getThongTin() {
 		return thongTin;
@@ -36,11 +38,17 @@ public class LuongY {
 	public void setThongTin(String thongTin) {
 		this.thongTin = thongTin;
 	}
-	public String getSDT() {
-		return SDT;
+	public String getsDT() {
+		return sDT;
 	}
-	public void setSDT(String sDT) {
-		SDT = sDT;
+	public void setsDT(String sDT) {
+		this.sDT = sDT;
+	}
+	public int getTrangThai() {
+		return trangThai;
+	}
+	public void setTrangThai(int trangThai) {
+		this.trangThai = trangThai;
 	}
 	public int getSoLuotTruyCap() {
 		return soLuotTruyCap;
@@ -50,9 +58,12 @@ public class LuongY {
 	}
 	@Override
 	public String toString() {
-		return "LuongY [maLuongY=" + maLuongY + ", tenLuongY=" + tenLuongY + ", thongTin=" + thongTin + ", SDT=" + SDT
-				+ ", soLuotTruyCap=" + soLuotTruyCap + "]";
+		return "LuongY [maLuongY=" + maLuongY + ", ten=" + ten + ", thongTin=" + thongTin + ", sDT=" + sDT
+				+ ", trangThai=" + trangThai + ", soLuotTruyCap=" + soLuotTruyCap + "]";
 	}
+	
+	
+	
 	
 	
 	

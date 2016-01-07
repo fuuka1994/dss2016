@@ -5,7 +5,7 @@ public class BaiThuoc {
 	private String tenBaiThuoc;
 	private String thongTin;
 	private String cachDung;
-	private int soLuongTruyCap;
+	private int soLuotTruyCap;
 	public BaiThuoc() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -16,7 +16,7 @@ public class BaiThuoc {
 		this.tenBaiThuoc = tenBaiThuoc;
 		this.thongTin = thongTin;
 		this.cachDung = cachDung;
-		this.soLuongTruyCap = soLuongTruyCap;
+		this.soLuotTruyCap = soLuongTruyCap;
 	}
 	public int getMaBaiThuoc() {
 		return maBaiThuoc;
@@ -42,16 +42,16 @@ public class BaiThuoc {
 	public void setCachDung(String cachDung) {
 		this.cachDung = cachDung;
 	}
-	public int getSoLuongTruyCap() {
-		return soLuongTruyCap;
+	public int getSoLuotTruyCap() {
+		return soLuotTruyCap;
 	}
-	public void setSoLuongTruyCap(int soLuongTruyCap) {
-		this.soLuongTruyCap = soLuongTruyCap;
+	public void setSoLuotTruyCap(int soLuotTruyCap) {
+		this.soLuotTruyCap = soLuotTruyCap;
 	}
 	@Override
 	public String toString() {
 		return "BaiThuoc [maBaiThuoc=" + maBaiThuoc + ", tenBaiThuoc=" + tenBaiThuoc + ", thongTin=" + thongTin
-				+ ", cachDung=" + cachDung + ", soLuongTruyCap=" + soLuongTruyCap + "]";
+				+ ", cachDung=" + cachDung + ", soLuongTruyCap=" + soLuotTruyCap + "]";
 	}
 	
 	
