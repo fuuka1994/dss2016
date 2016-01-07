@@ -9,6 +9,7 @@ import java.util.List;
 import com.sun.swing.internal.plaf.basic.resources.basic;
 
 import model.BaiThuoc;
+import model.BaiViet;
 import model.Benh;
 
 public class DbBenh extends connect {
@@ -67,6 +68,22 @@ public class DbBenh extends connect {
 		int rs2 = 0;
 		rs2 = ps2.executeUpdate();
 		
+	}
+	
+	public List<Benh> sortTruyCap(ArrayList<Benh> benh){
+		for (int i = 0; i < benh.size()-1; i++) {
+			for (int j = i+1; j < benh.size(); j++) {
+				if(benh.get(i).getSoLuotTruyCap() < benh.get(j).getSoLuotTruyCap()){
+					Benh temp = new Benh();
+					temp = benh.get(i);
+					benh.set(i, benh.get(j));
+					benh.set(j, temp);
+		
+					
+				}
+			}
+		}
+		return benh;
 	}
 	
 }

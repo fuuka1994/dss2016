@@ -64,6 +64,22 @@ public class DbBaiThuoc extends connect {
 		
 	}
 	
+	public List<BaiThuoc> sortTruyCap(ArrayList<BaiThuoc> baithuoc){
+		for (int i = 0; i < baithuoc.size()-1; i++) {
+			for (int j = i+1; j < baithuoc.size(); j++) {
+				if(baithuoc.get(i).getSoLuotTruyCap() < baithuoc.get(j).getSoLuotTruyCap()){
+					BaiThuoc temp = new BaiThuoc();
+					temp = baithuoc.get(i);
+					baithuoc.set(i, baithuoc.get(j));
+					baithuoc.set(j, temp);
+		
+					
+				}
+			}
+		}
+		return baithuoc;
+	}
+	
 	
 	
 	

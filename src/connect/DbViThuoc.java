@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Benh;
+import model.NhaThuoc;
 import model.ViThuoc;
 
 public class DbViThuoc extends connect {
@@ -65,6 +66,22 @@ public class DbViThuoc extends connect {
 		int rs2 = 0;
 		rs2 = ps2.executeUpdate();
 		
+	}
+	
+	public List<ViThuoc> sortTruyCap(ArrayList<ViThuoc> vithuoc){
+		for (int i = 0; i < vithuoc.size()-1; i++) {
+			for (int j = i+1; j < vithuoc.size(); j++) {
+				if(vithuoc.get(i).getSoLuotTruyCap() < vithuoc.get(j).getSoLuotTruyCap()){
+					ViThuoc temp = new ViThuoc();
+					temp = vithuoc.get(i);
+					vithuoc.set(i, vithuoc.get(j));
+					vithuoc.set(j, temp);
+		
+					
+				}
+			}
+		}
+		return vithuoc;
 	}
 	
 }

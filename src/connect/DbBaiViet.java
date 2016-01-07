@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.BaiThuoc;
 import model.BaiViet;
 import model.LuongY;
 
@@ -60,4 +61,22 @@ import model.LuongY;
 			rs2 = ps2.executeUpdate();
 			
 		}
+		
+		public List<BaiViet> sortTruyCap(ArrayList<BaiViet> baiviet){
+			for (int i = 0; i < baiviet.size()-1; i++) {
+				for (int j = i+1; j < baiviet.size(); j++) {
+					if(baiviet.get(i).getSoLuotTruyCap() < baiviet.get(j).getSoLuotTruyCap()){
+						BaiViet temp = new BaiViet();
+						temp = baiviet.get(i);
+						baiviet.set(i, baiviet.get(j));
+						baiviet.set(j, temp);
+			
+						
+					}
+				}
+			}
+			return baiviet;
+		}
+		
+		
 }

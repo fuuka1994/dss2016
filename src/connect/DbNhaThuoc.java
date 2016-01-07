@@ -84,5 +84,21 @@ public class DbNhaThuoc extends connect {
 		
 	}
 	
+	public List<NhaThuoc> sortTruyCap(ArrayList<NhaThuoc> nhathuoc){
+		for (int i = 0; i < nhathuoc.size()-1; i++) {
+			for (int j = i+1; j < nhathuoc.size(); j++) {
+				if(nhathuoc.get(i).getSoLuotTruyCap() < nhathuoc.get(j).getSoLuotTruyCap()){
+					NhaThuoc temp = new NhaThuoc();
+					temp = nhathuoc.get(i);
+					nhathuoc.set(i, nhathuoc.get(j));
+					nhathuoc.set(j, temp);
+		
+					
+				}
+			}
+		}
+		return nhathuoc;
+	}
+	
 	
 }

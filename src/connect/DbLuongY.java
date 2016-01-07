@@ -60,4 +60,22 @@ public class DbLuongY extends connect {
 		rs2 = ps2.executeUpdate();
 		
 	}
+	
+	public List<LuongY> sortTruyCap(ArrayList<LuongY> luongy){
+		for (int i = 0; i < luongy.size()-1; i++) {
+			for (int j = i+1; j < luongy.size(); j++) {
+				if(luongy.get(i).getSoLuotTruyCap() < luongy.get(j).getSoLuotTruyCap()){
+					LuongY temp = new LuongY();
+					temp = luongy.get(i);
+					luongy.set(i, luongy.get(j));
+					luongy.set(j, temp);
+		
+					
+				}
+			}
+		}
+		return luongy;
+	}
+	
+	
 }
