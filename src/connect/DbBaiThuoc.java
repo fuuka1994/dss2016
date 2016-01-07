@@ -17,20 +17,55 @@ public class DbBaiThuoc extends connect {
 		con.ketNoi();
 		String word = "N%"+keyWord+"%";
 		word = word.toLowerCase();
-		String command = "select * form Tbl_BaiThuoc where Lower(TenBaiThuoc) like ?";
+		String command = "select * form TBL_BAITHUOC where Lower(TENBAITHUOC) like ?";
 		PreparedStatement ps = connection.prepareStatement(command);
 		ps.setString(1,word);
 		ResultSet rs = ps.executeQuery();
 		while(rs.next()){
 			BaiThuoc bt = new BaiThuoc();
 			bt.setMaBaiThuoc(rs.getInt(1));
-			bt.setTenBaiThuoc(rs.getString("TenBaiThuoc"));
-			bt.setThongTin(rs.getString("ThongTin"));
-			bt.setCachDung(rs.getString("CachDung"));
+			bt.setTenBaiThuoc(rs.getString("TENBAITHUOC"));
+			bt.setThongTin(rs.getString("THONGTIN"));
+			bt.setCachDung(rs.getString("CACHDUNG"));
 			bt.setSoLuotTruyCap(rs.getInt(5));
 			
 			list.add(bt);
 		}
 		return list;
 	}
+	
+	public void updateLuotTruyCap(int id) throws SQLException{
+		BaiThuoc bt = new BaiThuoc();
+		connect con = new connect();
+		con.ketNoi();
+		
+		String command1 = "select *from TBL_BAITHUOC where MABAITHUOC=? ";
+		PreparedStatement ps1 = connection.prepareStatement(command1);
+		ps1.setInt(1, id);
+		ResultSet rs1 = ps1.executeQuery();
+		while (rs1.next()) {
+			bt.setMaBaiThuoc(rs1.getInt(1));
+			bt.setTenBaiThuoc(rs1.getString("TENBAITHUOC"));
+			bt.setThongTin(rs1.getString("THONGTIN"));
+			bt.setCachDung(rs1.getString("CACHDUNG"));
+			bt.setSoLuotTruyCap(rs1.getInt(5));	
+		}
+		
+		int count = bt.getSoLuotTruyCap();
+		count = count++;
+		String command2 = "update TBL_BAITHUOC set SOLUONGTRUYCAP = ? where MABAITHUOC=? ";
+		PreparedStatement ps2 = connection.prepareStatement(command2);
+		ps2.setInt(1, count);
+		ps2.setInt(2, id);
+		
+		int rs2 = 0;
+		rs2 = ps2.executeUpdate();
+		
+		
+	}
+	
+	
+	
+	
+	
 }
