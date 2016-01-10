@@ -17,12 +17,16 @@ import javax.swing.JLabel;
 
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListCellRenderer;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+
+import model.BaiThuoc;
+import model.BaiThuocViThuoc;
 
 import javax.swing.JScrollPane;
 import javax.swing.JMenuBar;
@@ -54,8 +58,6 @@ public class ChatWindow extends JFrame {
 	
 	private final String backImg = "back.png";
 	private final String backHoverImg = "backh.png";
-	private final String askImg = "ask.png";
-	private final String askHoverImg = "askh.png";
 	private final String resetImg = "reset.png";
 	private final String resetHoverImg = "reseth.png";
 	private final String doctorImg = "doctor.png";
@@ -122,12 +124,12 @@ public class ChatWindow extends JFrame {
 	private final String okImg = "ok.png";
 	private final String okHoverImg = "okh.png";
 	
-	
+	private final String rateImg = "rate.png";
+	private final String rateHoverImg = "rateh.png";
 
 	private JScrollPane scrollAskPane;
 	private JPanel chatList;
 	private ImageButton backButton;
-	private ImageButton askButton;
 	private ImageButton resetButton;
 	//cac nut chinh
 	private ImageButton baithuocButton;
@@ -173,16 +175,19 @@ public class ChatWindow extends JFrame {
 
 	//list tat ca Jpanel trong khung chat
 	private List<JPanel> logs;
+	private JPanel detailPanel;
+	private JLabel detailTitle;
+	private JProgressBar detailScore;
+	private JLabel detailViews;
+	private JPanel detailInform;
+	private ImageButton rateButton;
 	
 	public ChatWindow(){
 		this.setResizable(false);
 		this.setTitle("H\u1ec7 th\u1ed1ng tr\u1ee3 gi\u00fap quy\u1ebft \u0111\u1ecbnh v\u1ec1 Y h\u1ecdc c\u1ed5 truy\u1ec1n");
-		this.setBounds((java.awt.Toolkit.getDefaultToolkit().getScreenSize().width-600)/2, 5, 600, 700);
+		this.setBounds((java.awt.Toolkit.getDefaultToolkit().getScreenSize().width-1100)/2, 5, 1100, 700);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.getContentPane().setBackground(bgColor);
-		
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		getContentPane().add(tabbedPane, BorderLayout.CENTER);
 		
 		//Menu
 		JMenuBar menuBar = new JMenuBar();
@@ -199,8 +204,9 @@ public class ChatWindow extends JFrame {
 		
 		//Ask Tab		
 		JPanel askPanel = new JPanel();
-		tabbedPane.addTab("H\u1ecfi \u0111\u00e1p", null, askPanel, null);
 		askPanel.setLayout(new BorderLayout(0, 0));
+		askPanel.setPreferredSize(new Dimension(610, 640));
+		getContentPane().add(askPanel, BorderLayout.WEST);
 		
 		JPanel borderOfScroll = new JPanel(new BorderLayout());
 		borderOfScroll.setBorder(new LineBorder(fgColor));
@@ -229,6 +235,7 @@ public class ChatWindow extends JFrame {
 //		bottomAskPanel.add(questionPanel, BorderLayout.NORTH);
 		
 		JPanel bottomButtonPanel = new JPanel(new FlowLayout());
+		bottomButtonPanel.setBackground(bgColor);
 		bottomButtonPanel.setPreferredSize(new Dimension(600, 50));
 //		bottomAskPanel.add(bottomButtonPanel, BorderLayout.SOUTH);
 		askPanel.add(bottomButtonPanel, BorderLayout.SOUTH);
@@ -238,15 +245,19 @@ public class ChatWindow extends JFrame {
 		backButton.setOpaque(false);
 		bottomButtonPanel.add(backButton);
 		
-		askButton = new ImageButton(askImg, askHoverImg);
-		askButton.setPreferredSize(new Dimension(200, 45));
-		askButton.setOpaque(false);
-		bottomButtonPanel.add(askButton);
-		
 		resetButton = new ImageButton(resetImg, resetHoverImg);
 		resetButton.setPreferredSize(new Dimension(150, 45));
 		resetButton.setOpaque(false);
 		bottomButtonPanel.add(resetButton);
+		
+		detailPanel = new JPanel();
+		getContentPane().add(detailPanel, BorderLayout.EAST);
+		detailPanel.setBackground(bgColor);
+		detailPanel.setLayout(new BorderLayout());
+		
+		benhButton = new ImageButton(benhImg, benhHoverImg);
+		benhButton.setPreferredSize(new Dimension(100, 100));
+		benhButton.setOpaque(false);
 		
 		baithuocButton = new ImageButton(baithuocImg, baithuocHoverImg);
 		baithuocButton.setPreferredSize(new Dimension(100, 100));
@@ -255,10 +266,6 @@ public class ChatWindow extends JFrame {
 		vithuocButton = new ImageButton(vithuocImg, vithuocHoverImg);
 		vithuocButton.setPreferredSize(new Dimension(100, 100));
 		vithuocButton.setOpaque(false);
-		
-		benhButton = new ImageButton(benhImg, benhHoverImg);
-		benhButton.setPreferredSize(new Dimension(100, 100));
-		benhButton.setOpaque(false);
 		
 		luongyButton = new ImageButton(luongyImg, luongyHoverImg);
 		luongyButton.setPreferredSize(new Dimension(100, 100));
@@ -370,6 +377,58 @@ public class ChatWindow extends JFrame {
 		labelListModel = new DefaultListModel<JLabel>();
 		resultList.setModel(labelListModel);
 		resultList.setBackground(fgColor2);
+		
+		JPanel topDetailPanel = new JPanel(new BorderLayout());
+		detailPanel.add(topDetailPanel, BorderLayout.NORTH);
+		topDetailPanel.setOpaque(false);
+		
+		detailTitle = new JLabel();
+		detailTitle.setFont(BIGGER_FONT);
+		detailTitle.setForeground(fgColor);
+		detailTitle.setOpaque(false);
+		detailTitle.setFont(BIGGER_FONT);
+		detailTitle.setOpaque(false);
+		detailTitle.setText(String.format("<html><div WIDTH=%d><center>%s</center></div><html>", 470, "My very very very very very very very very very long title text"));
+		topDetailPanel.add(detailTitle, BorderLayout.NORTH);
+		
+		detailScore = new JProgressBar();
+		detailScore.setPreferredSize(new Dimension(150, 30));
+		detailScore.setForeground(fgColor2);
+		detailScore.setValue(100);
+		detailScore.setString("3/5");
+		detailScore.setStringPainted(true);
+		
+		JPanel bottomTopDetailPanel = new JPanel(new BorderLayout());
+		bottomTopDetailPanel.setOpaque(false);
+		topDetailPanel.add(bottomTopDetailPanel, BorderLayout.CENTER);
+		
+		bottomTopDetailPanel.add(detailScore, BorderLayout.WEST);
+		
+		detailViews = new JLabel("L\u01b0\u1ee3t vote: 3", JLabel.CENTER);
+		detailViews.setForeground(fgColor);
+		detailViews.setFont(SMALLER_FONT);
+		detailViews.setOpaque(false);
+		
+		JPanel leftBottomDetailPanel = new JPanel(new BorderLayout());
+		leftBottomDetailPanel.setOpaque(false);
+		
+		bottomTopDetailPanel.add(leftBottomDetailPanel, BorderLayout.CENTER);
+		leftBottomDetailPanel.add(detailViews, BorderLayout.CENTER);
+		
+		rateButton = new ImageButton(rateImg, rateHoverImg);
+		rateButton.setPreferredSize(new Dimension(100, 30));
+		leftBottomDetailPanel.add(rateButton, BorderLayout.WEST);
+		
+		detailInform = new JPanel(new WrapLayout());
+		detailInform.setBackground(bgColor);
+		detailInform.setBorder(new EmptyBorder(0, 0, 0, 0));
+		
+		JScrollPane scrollDetailPane = new JScrollPane();
+		scrollDetailPane.setOpaque(false);
+		detailPanel.add(scrollDetailPane, BorderLayout.CENTER);
+
+		detailInform.setMaximumSize(new Dimension(470, 100000));
+		scrollDetailPane.setViewportView(detailInform);
 		
 	}
 	
@@ -864,60 +923,7 @@ public class ChatWindow extends JFrame {
 		logs.add(panelDoctor);
 	}
 	
-	public void generateDetailList(String title, String sentence, List<String> result){
-		JPanel panelDetail = new JPanel(new BorderLayout());
-		panelDetail.setOpaque(false);
-		
-		ImageLabel doctorLabel = new ImageLabel(doctorImg, 60, 45);
-		panelDetail.add(doctorLabel, BorderLayout.WEST);
-		
-		JPanel bubble = new JPanel(new BorderLayout());
-		bubble.setOpaque(false);
-		
-		ImageLabel topLabel = new ImageLabel(topBubbleImg, 500, 25);
-		ImageLabel bottomLabel = new ImageLabel(bottomBubbleImg, 500, 15);
-		
-		JPanel textPanel = new JPanel(new WrapLayout());
-		textPanel.setBackground(fgColor2);
-		
-		bubble.add(topLabel, BorderLayout.NORTH);
-		
-		bubble.add(bottomLabel, BorderLayout.SOUTH);
-		
-		bubble.add(textPanel, BorderLayout.CENTER);
-		
-		JTextArea tit = new JTextArea(title);
-		tit.setFont(BIGGER_FONT);
-		tit.setForeground(bgColor);
-		tit.setOpaque(false);
-		tit.setEditable(false);
-		tit.setColumns(24);
-		tit.setLineWrap(true);
-		tit.setWrapStyleWord(true);
-		
-		JTextArea text = new JTextArea(sentence);
-		text.setFont(SMALLER_FONT);
-		text.setForeground(bgColor);
-		text.setOpaque(false);
-		text.setEditable(false);
-		text.setColumns(34);
-		text.setLineWrap(true);
-		text.setWrapStyleWord(true);
-		
-		textPanel.add(tit);
-		textPanel.add(text);
-		
-		setListOfResult(result);
-		JScrollPane resultScroll = new JScrollPane();
-//		resultScroll.setBackground(fgColor2);
-		resultScroll.setPreferredSize(new Dimension(480, 150));
-		resultScroll.setViewportView(resultList);
-		textPanel.add(resultScroll);
-		
-		panelDetail.add(bubble, BorderLayout.CENTER);
-		logs.add(panelDetail);
-	}
-	
+
 	public void refreshLog() {
 //		chatListModel.clear();
 //		panelRenderer = new PanelListCellRenderer();
@@ -935,12 +941,29 @@ public class ChatWindow extends JFrame {
 //		scrollAskPane.repaint();
 	}
 	
-	public void addBackButtonActionListener(ActionListener listener){
-		backButton.addActionListener(listener);
+	public void rollBack() {
+//		chatListModel.clear();
+//		panelRenderer = new PanelListCellRenderer();
+//		chatList.setCellRenderer(panelRenderer);
+		
+		chatList.removeAll();
+		if(logs.size() > 2){
+			logs.remove(logs.size()-1);
+			logs.remove(logs.size()-1);
+		}
+		
+		for (JPanel log: logs) {
+			chatList.add(log);
+		}
+		chatList.repaint();
+		int height = (int)chatList.getPreferredSize().getHeight();
+		System.out.println(height);
+		scrollAskPane.getViewport().setViewPosition(new Point(0,height));
+//		scrollAskPane.repaint();
 	}
 	
-	public void addAskButtonActionListener(ActionListener listener){
-		askButton.addActionListener(listener);
+	public void addBackButtonActionListener(ActionListener listener){
+		backButton.addActionListener(listener);
 	}
 	
 	public void addResetButtonActionListener(ActionListener listener){
@@ -1106,4 +1129,59 @@ public class ChatWindow extends JFrame {
 		resultList.addMouseListener(adapter);
 	}
 
+	public void baiThuocDetail(BaiThuoc baithuoc){
+		detailTitle.setText(String.format("<html><div WIDTH=%d><center>%s</center></div><html>", 470, baithuoc.getTenBaiThuoc()));
+		detailScore.setValue(baithuoc.getDiemVote()*20);
+		detailScore.setString(baithuoc.getDiemVote()+"/5");
+		detailViews.setText("L\u01b0\u1ee3t vote: " + baithuoc.getSoLuotTruyCap());
+		
+		detailInform.removeAll();
+		
+		JTextArea text1 = new JTextArea("Th\u00f4ng tin");
+		text1.setFont(SMALLER_FONT);
+		text1.setForeground(fgColor);
+		text1.setOpaque(false);
+		text1.setEditable(false);
+		text1.setColumns(30);
+		text1.setLineWrap(true);
+		text1.setWrapStyleWord(true);
+		
+		detailInform.add(text1);
+		
+		JTextArea content1 = new JTextArea(baithuoc.getThongTin());
+		content1.setFont(SMALLER_FONT);
+		content1.setForeground(fgColor);
+		content1.setOpaque(false);
+		content1.setEditable(false);
+		content1.setColumns(30);
+		content1.setLineWrap(true);
+		content1.setWrapStyleWord(true);
+		
+		detailInform.add(content1);
+		
+		JTextArea text2 = new JTextArea("C\u00e1ch d\u00f9ng");
+		text2.setFont(SMALLER_FONT);
+		text2.setForeground(fgColor);
+		text2.setOpaque(false);
+		text2.setEditable(false);
+		text2.setColumns(30);
+		text2.setLineWrap(true);
+		text2.setWrapStyleWord(true);
+		
+		detailInform.add(text2);
+		
+		JTextArea content2 = new JTextArea(baithuoc.getCachDung());
+		content2.setFont(SMALLER_FONT);
+		content2.setForeground(fgColor);
+		content2.setOpaque(false);
+		content2.setEditable(false);
+		content2.setColumns(30);
+		content2.setLineWrap(true);
+		content2.setWrapStyleWord(true);
+		
+		detailInform.add(content2);
+		
+		detailInform.repaint();
+		
+	}
 }
