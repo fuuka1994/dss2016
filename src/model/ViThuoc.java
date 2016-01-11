@@ -7,7 +7,16 @@ public class ViThuoc {
 	private String kiengKy;
 	private String tinhChat;
 	private int soLuotTruyCap;
+	private int diemVote;
 	
+	public int getDiemVote() {
+		return diemVote;
+	}
+
+	public void setDiemVote(int diemVote) {
+		this.diemVote = diemVote;
+	}
+
 	public ViThuoc() {
 		super();
 		// TODO Auto-generated constructor stub

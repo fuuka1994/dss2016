@@ -6,6 +6,13 @@ public class NhaThuoc {
 	private String thongTin;
 	private String diaChi;
 	private int soLuotTruyCap;
+	private int diemVote;
+	public int getDiemVote() {
+		return diemVote;
+	}
+	public void setDiemVote(int diemVote) {
+		this.diemVote = diemVote;
+	}
 	public NhaThuoc() {
 		super();
 		// TODO Auto-generated constructor stub

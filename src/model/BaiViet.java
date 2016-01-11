@@ -6,6 +6,13 @@ public class BaiViet {
 	private String noiDung;
 	private String anhMinhHoa;
 	private int soLuotTruyCap;
+	private int diemVote;
+	public int getDiemVote() {
+		return diemVote;
+	}
+	public void setDiemVote(int diemVote) {
+		this.diemVote = diemVote;
+	}
 	public BaiViet() {
 		super();
 		// TODO Auto-generated constructor stub

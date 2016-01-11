@@ -7,6 +7,13 @@ public class Benh {
 	private String trieuChung;
 	private String kiengKy;
 	private int soLuotTruyCap;
+	private int diemVote;
+	public int getDiemVote() {
+		return diemVote;
+	}
+	public void setDiemVote(int diemVote) {
+		this.diemVote = diemVote;
+	}
 	public Benh() {
 		super();
 		// TODO Auto-generated constructor stub

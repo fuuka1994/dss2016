@@ -7,6 +7,13 @@ public class LuongY {
 	private String sDT;
 	private int trangThai;
 	private int soLuotTruyCap;
+	private int diemVote;
+	public int getDiemVote() {
+		return diemVote;
+	}
+	public void setDiemVote(int diemVote) {
+		this.diemVote = diemVote;
+	}
 	public LuongY() {
 		super();
 		// TODO Auto-generated constructor stub

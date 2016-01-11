@@ -15,6 +15,11 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import connect.DbBaiThuoc;
+import connect.DbBaiViet;
+import connect.DbBenh;
+import connect.DbLuongY;
+import connect.DbNhaThuoc;
+import connect.DbViThuoc;
 import connect.connect;
 import model.Answer;
 import model.BaiThuoc;
@@ -35,6 +40,7 @@ public class ChatController {
 	private String keyword;
 	private int type;
 	private int type2;
+	private int rateID;
 	private int pos;
 	
 	private List<String> listtentruyenvao;
@@ -47,13 +53,20 @@ public class ChatController {
 	private List<BaiViet> listbaiviet;
 	
 	private DbBaiThuoc daobaithuoc;
+	private DbViThuoc daovithuoc;
+	private DbBenh daobenh;
+	private DbNhaThuoc daonhathuoc;
+	private DbLuongY daoluongy;
+	private DbBaiViet daobaiviet;
 	
 	public ChatController(){
 		
-		connect con = new connect();
-		con.ketNoi();
-		
 		daobaithuoc = new DbBaiThuoc();
+		daovithuoc = new DbViThuoc();
+		daobenh = new DbBenh();
+		daonhathuoc = new DbNhaThuoc();
+		daoluongy = new DbLuongY();
+		daobaiviet = new DbBaiViet();
 		
 		view = new ChatWindow();
 		try {
@@ -94,6 +107,7 @@ public class ChatController {
 		view.addTenBenhButtonActionListener(getTenBenhActionListener());
 		view.addLuongYChuaNoButtonActionListener(getLuongYChuaNoActionListener());
 		view.addBaiThuocChuaBenhButtonActionListener(getBaiThuocChuaBenhActionListener());
+		view.addChandoanButtonActionListener(getChandoanActionListener());
 		
 		view.addLuongyButtonActionListener(getLuongYActionListener());
 		view.addTenLuongYButtonActionListener(getTenLuongYActionListener());
@@ -115,6 +129,8 @@ public class ChatController {
 		
 		view.addResultListMouseListener(getResultListMouseAdapter());
 		
+		view.addRateActionListener(getRateButtonActionListener());
+		
 		view.setVisible(true);
 		
 		keyword = "";
@@ -122,27 +138,12 @@ public class ChatController {
 		type2 = 0;
 		pos = 0;
 		
-		listtentruyenvao = new ArrayList<String>();
-		
-		listtentruyenvao.add("Nguy\u1ec5n Linh \u0110an");
-		listtentruyenvao.add("V\u0169 \u0110\u00ecnh \u0110\u00f4ng");
-		listtentruyenvao.add("Nguy\u1ec1n V\u0103n Hi\u1ec7u");
-		listtentruyenvao.add("Ho\u00e0ng Th\u1ecb Hu\u00ea");
-		listtentruyenvao.add("Nguy\u1ec5n Th\u1ecb Nh\u00e0n");
-		listtentruyenvao.add("Nguy\u1ec5n Tuy\u1ebft Ng\u00e2n");
-		listtentruyenvao.add("L\u01b0u Trung Th\u1eafng");
-		listtentruyenvao.add("Tr\u1ea7n Quang Trung");
-		
-//		try {
-//			List<BaiThuoc> baithuoc = new DbBaiThuoc().loadTen("");
-//			view.baiThuocDetail(baithuoc.get(0));
-//		} catch (SQLException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}
-		
 		listbaithuoc = new ArrayList<BaiThuoc>();
 		listvithuoc = new ArrayList<ViThuoc>();
+		listbenh = new ArrayList<Benh>();
+		listluongy = new ArrayList<LuongY>();
+		listnhathuoc = new ArrayList<NhaThuoc>();
+		listbaiviet = new ArrayList<BaiViet>();
 	}
 	
 	//cac listener chung
@@ -390,6 +391,21 @@ public class ChatController {
 		return listener;
 	}
 	
+	private ActionListener getChandoanActionListener(){
+		ActionListener listener = new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				view.generatePatientSentence("T\u00f4i mu\u1ed1n \u0111\u01b0\u1ee3c chu\u1ea9n \u0111o\u00e1n b\u1ec7nh theo tri\u1ec7u ch\u1ee9ng.");
+				view.generateDoctorField("H\u00e3y nh\u1eadp tri\u1ec7u ch\u1ee9ng");
+				view.refreshLog();
+				type = 12;
+				type2 = 3;
+			}
+		};
+		return listener;
+	}
+	
 	//cac listener luong y
 	private ActionListener getTenLuongYActionListener(){		//type = 13
 		ActionListener listener = new ActionListener() {
@@ -521,7 +537,7 @@ public class ChatController {
 				view.generatePatientSentence("T\u00f4i mu\u1ed1n xem th\u00f4ng tin danh y.");
 				view.generateDoctorField("H\u00e3y nh\u1eadp t\u00ean danh y");
 				view.refreshLog();
-				type = 18;
+				type = 25;
 				type2 = 7;
 			}
 		};
@@ -536,7 +552,7 @@ public class ChatController {
 				view.generatePatientSentence("T\u00f4i mu\u1ed1n xem lo\u1ea1i th\u00f4ng tin kh\u00e1c.");
 				view.generateDoctorField("H\u00e3y nh\u1eadp t\u1eeb kh\u00f3a");
 				view.refreshLog();
-				type = 19;
+				type = 21;
 				type2 = 6;
 			}
 		};
@@ -564,6 +580,203 @@ public class ChatController {
 							view.generateResultList("C\u00e1c b\u00e0i thu\u1ed1c h\u1ee3p v\u1edbi y\u00eau c\u1ea7u c\u1ee7a b\u1ea1n l\u00e0:", getListOfTenbaithuoc());
 							view.refreshLog();
 							break;
+						case 2:
+							view.generatePatientSentence("T\u00ecm theo t\u00ean b\u1ec7nh '" + keyword + "'.");
+							try {
+								listbaithuoc = daobenh.loadBaiThuocTuBenh(keyword);
+								System.out.println(listbaithuoc.size());
+							} catch (SQLException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							view.generateResultList("C\u00e1c b\u00e0i thu\u1ed1c h\u1ee3p v\u1edbi y\u00eau c\u1ea7u c\u1ee7a b\u1ea1n l\u00e0:", getListOfTenbaithuoc());
+							view.refreshLog();
+							break;
+						case 3:
+							view.generatePatientSentence("T\u00ecm theo t\u00ean v\u1ecb thu\u1ed1c '" + keyword + "'.");
+							try {
+								listbaithuoc = daovithuoc.loadBaithuocTuVithuoc(keyword);
+							} catch (SQLException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							view.generateResultList("C\u00e1c b\u00e0i thu\u1ed1c h\u1ee3p v\u1edbi y\u00eau c\u1ea7u c\u1ee7a b\u1ea1n l\u00e0:", getListOfTenbaithuoc());
+							view.refreshLog();
+							break;
+						case 4:
+							view.generatePatientSentence("T\u00ecm theo t\u00ean nh\u00e0 thu\u1ed1c '" + keyword + "'.");
+							try {
+								listbaithuoc = daonhathuoc.loadBaiThuocTuNhaThuoc(keyword);
+							} catch (SQLException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							view.generateResultList("C\u00e1c b\u00e0i thu\u1ed1c h\u1ee3p v\u1edbi y\u00eau c\u1ea7u c\u1ee7a b\u1ea1n l\u00e0:", getListOfTenbaithuoc());
+							view.refreshLog();
+							break;
+						case 5:
+							view.generatePatientSentence("T\u00ecm theo t\u00ean v\u1ecb thu\u1ed1c '" + keyword + "'.");
+							try {
+								listvithuoc = daovithuoc.loadTen(keyword);
+							} catch (SQLException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							view.generateResultList("C\u00e1c v\u1ecb thu\u1ed1c h\u1ee3p v\u1edbi y\u00eau c\u1ea7u c\u1ee7a b\u1ea1n l\u00e0:", getListOfTenvithuoc());
+							view.refreshLog();
+							break;
+						case 6:
+							view.generatePatientSentence("T\u00ecm theo t\u00ean b\u00e0i thu\u1ed1c '" + keyword + "'.");
+							try {
+								listvithuoc = daobaithuoc.loadViThuocTuBaiThuoc(keyword);
+							} catch (SQLException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							view.generateResultList("C\u00e1c v\u1ecb thu\u1ed1c h\u1ee3p v\u1edbi y\u00eau c\u1ea7u c\u1ee7a b\u1ea1n l\u00e0:", getListOfTenvithuoc());
+							view.refreshLog();
+							break;
+						case 9:
+							view.generatePatientSentence("T\u00ecm theo t\u00ean b\u1ec7nh '" + keyword + "'.");
+							try {
+								listbenh = daobenh.loadTen(keyword);
+							} catch (SQLException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							view.generateResultList("C\u00e1c b\u1ec7nh h\u1ee3p v\u1edbi y\u00eau c\u1ea7u c\u1ee7a b\u1ea1n l\u00e0:", getListOfTenbenh());
+							view.refreshLog();
+							break;
+						case 10:
+							view.generatePatientSentence("T\u00ecm theo t\u00ean l\u01b0\u01a1ng y ch\u1eefa n\u00f3 '" + keyword + "'.");
+							try {
+								listbenh = daoluongy.loadBenhTuLuongY(keyword);
+							} catch (SQLException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							view.generateResultList("C\u00e1c b\u1ec7nh h\u1ee3p v\u1edbi y\u00eau c\u1ea7u c\u1ee7a b\u1ea1n l\u00e0:", getListOfTenbenh());
+							view.refreshLog();
+							break;
+						case 11:
+							view.generatePatientSentence("T\u00ecm theo t\u00ean b\u00e0i thu\u1ed1c ch\u1eefa n\u00f3 '" + keyword + "'.");
+							try {
+								listbenh = daobaithuoc.loadBenhTuBaiThuoc(keyword);
+							} catch (SQLException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							view.generateResultList("C\u00e1c b\u1ec7nh h\u1ee3p v\u1edbi y\u00eau c\u1ea7u c\u1ee7a b\u1ea1n l\u00e0:", getListOfTenbenh());
+							view.refreshLog();
+							break;
+						case 12:
+							view.generatePatientSentence("T\u00ecm theo tri\u1ec7u ch\u1ee9ng '" + keyword + "'.");
+							try {
+								listbenh = daobenh.loadTrieuChung(keyword);
+							} catch (SQLException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							view.generateResultList("C\u00e1c b\u1ec7nh h\u1ee3p v\u1edbi y\u00eau c\u1ea7u c\u1ee7a b\u1ea1n l\u00e0:", getListOfTenbenh());
+							view.refreshLog();
+							break;
+						case 13:
+							view.generatePatientSentence("T\u00ecm theo l\u01b0\u01a1ng y '" + keyword + "'.");
+							try {
+								listluongy = daoluongy.loadTen(keyword);
+							} catch (SQLException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							view.generateResultList("C\u00e1c l\u01b0\u01a1ng y h\u1ee3p v\u1edbi y\u00eau c\u1ea7u c\u1ee7a b\u1ea1n l\u00e0:", getListOfTenluongy());
+							view.refreshLog();
+							break;
+//						case 14:
+//							view.generatePatientSentence("T\u00ecm theo khu v\u1ef1c '" + keyword + "'.");
+//							try {
+//								listluongy = daoluongy.loa
+//							} catch (SQLException e1) {
+//								// TODO Auto-generated catch block
+//								e1.printStackTrace();
+//							}
+//							view.generateResultList("C\u00e1c l\u01b0\u01a1ng y h\u1ee3p v\u1edbi y\u00eau c\u1ea7u c\u1ee7a b\u1ea1n l\u00e0:", getListOfTenluongy());
+//							view.refreshLog();
+//							break;
+						case 15:
+							view.generatePatientSentence("T\u00ecm theo b\u1ec7nh '" + keyword + "'.");
+							try {
+								listluongy = daobenh.loadLuongYTuBenh(keyword);
+							} catch (SQLException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							view.generateResultList("C\u00e1c l\u01b0\u01a1ng y h\u1ee3p v\u1edbi y\u00eau c\u1ea7u c\u1ee7a b\u1ea1n l\u00e0:", getListOfTenluongy());
+							view.refreshLog();
+							break;
+						case 16:
+							view.generatePatientSentence("T\u00ecm theo nh\u00e0 thu\u1ed1c '" + keyword + "'.");
+							try {
+								listluongy = daonhathuoc.loadLuongYTuNhaThuoc(keyword);
+							} catch (SQLException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							view.generateResultList("C\u00e1c l\u01b0\u01a1ng y h\u1ee3p v\u1edbi y\u00eau c\u1ea7u c\u1ee7a b\u1ea1n l\u00e0:", getListOfTennhathuoc());
+							view.refreshLog();
+							break;
+						case 17:
+							view.generatePatientSentence("T\u00ecm theo nh\u00e0 thu\u1ed1c '" + keyword + "'.");
+							try {
+								listnhathuoc = daonhathuoc.loadTen(keyword);
+							} catch (SQLException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							view.generateResultList("C\u00e1c nh\u00e0 thu\u1ed1c h\u1ee3p v\u1edbi y\u00eau c\u1ea7u c\u1ee7a b\u1ea1n l\u00e0:", getListOfTennhathuoc());
+							view.refreshLog();
+						case 18:
+							view.generatePatientSentence("T\u00ecm theo b\u00e0i thu\u1ed1c '" + keyword + "'.");
+							try {
+								listnhathuoc = daobaithuoc.loadNhaThuocTuBaiThuoc(keyword);
+							} catch (SQLException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							view.generateResultList("C\u00e1c nh\u00e0 thu\u1ed1c h\u1ee3p v\u1edbi y\u00eau c\u1ea7u c\u1ee7a b\u1ea1n l\u00e0:", getListOfTennhathuoc());
+							view.refreshLog();
+							break;
+						case 19:
+							view.generatePatientSentence("T\u00ecm theo l\u01b0\u01a1ng y '" + keyword + "'.");
+							try {
+								listnhathuoc = daoluongy.loadNhaThuocTuLuongY(keyword);
+							} catch (SQLException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							view.generateResultList("C\u00e1c nh\u00e0 thu\u1ed1c h\u1ee3p v\u1edbi y\u00eau c\u1ea7u c\u1ee7a b\u1ea1n l\u00e0:", getListOfTennhathuoc());
+							view.refreshLog();
+							break;
+						case 20:
+							view.generatePatientSentence("T\u00ecm theo khu v\u1ef1c '" + keyword + "'.");
+							try {
+								listnhathuoc = daonhathuoc.loadDiaChi(keyword);
+							} catch (SQLException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							view.generateResultList("C\u00e1c nh\u00e0 thu\u1ed1c h\u1ee3p v\u1edbi y\u00eau c\u1ea7u c\u1ee7a b\u1ea1n l\u00e0:", getListOfTennhathuoc());
+							view.refreshLog();
+							break;
+						case 21:
+							try {
+								listbaiviet = daobaiviet.loadTen(keyword);
+							} catch (SQLException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							view.generateResultList("C\u00e1c b\u00e0i vi\u1ebft h\u1ee3p v\u1edbi y\u00eau c\u1ea7u c\u1ee7a b\u1ea1n l\u00e0:", getListOfTenbaiviet());
+							view.refreshLog();
+							break;
 						default:
 							break;
 					}
@@ -581,17 +794,82 @@ public class ChatController {
 				JList theList = (JList) mouseEvent.getSource();
 				if (mouseEvent.getClickCount() >= 2) {
 					pos = theList.locationToIndex(mouseEvent.getPoint());
-					switch(type){
+					System.out.println(pos);
+					switch(type2){
 						case 1:
 							view.generatePatientSentence("T\u00f4i mu\u1ed1n xem chi ti\u1ebft b\u00e0i thu\u1ed1c '" + getListOfTenbaithuoc().get(pos) + "'.");
 							view.baiThuocDetail(listbaithuoc.get(pos));
+							rateID = 1;
 							try {
-								listvithuoc = daobaithuoc.loadViThuocTuBaiThuoc(keyword);
+								listvithuoc = daobaithuoc.loadViThuocTuBaiThuoc(getListOfTenbaithuoc().get(pos));
 							} catch (SQLException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
-							view.generateResultList("C\u00e1c c\u00e2y thu\u1ed1c thu\u1ed9c b\u00e0i thu\u1ed1c '" + getListOfTenbaithuoc().get(pos) + "':", getListOfTenvithuoc());
+							view.generateResultList("C\u00e1c v\u1ecb thu\u1ed1c thu\u1ed9c b\u00e0i thu\u1ed1c '" + getListOfTenbaithuoc().get(pos) + "':", getListOfTenvithuoc());
+							type2 = 2;
+							break;
+						case 2:
+							view.generatePatientSentence("T\u00f4i mu\u1ed1n xem chi ti\u1ebft v\u1ecb thu\u1ed1c '" + getListOfTenvithuoc().get(pos) + "'.");
+							view.viThuocDetail(listvithuoc.get(pos));
+							rateID = 2;
+							try {
+								listbaithuoc = daovithuoc.loadBaithuocTuVithuoc(getListOfTenvithuoc().get(pos));
+							} catch (SQLException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							view.generateResultList("C\u00e1c b\u00e0i thu\u1ed1c c\u00f3 ch\u1ee9a v\u1ecb thu\u1ed1c '" + getListOfTenvithuoc().get(pos) + "':", getListOfTenbaithuoc());
+							type2 = 1;
+							break;
+						case 3:
+							view.generatePatientSentence("T\u00f4i mu\u1ed1n xem chi ti\u1ebft b\u1ec7nh '" + getListOfTenbenh().get(pos) + "'.");
+							view.benhDetail(listbenh.get(pos));
+							rateID = 3;
+							try {
+								listbaithuoc = daobenh.loadBaiThuocTuBenh(getListOfTenbenh().get(pos));
+							} catch (SQLException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							view.generateResultList("C\u00e1c b\u00e0i thu\u1ed1c c\u00f3 ch\u1ee9a v\u1ecb thu\u1ed1c '" + getListOfTenbaithuoc().get(pos) + "':", getListOfTenbaithuoc());
+							type2 = 1;
+							break;
+						case 4:
+							view.generatePatientSentence("T\u00f4i mu\u1ed1n xem chi ti\u1ebft l\u01b0\u01a1ng y '" + getListOfTenluongy().get(pos) + "'.");
+							view.luongyDetail(listluongy.get(pos));
+							rateID = 4;
+							try {
+								listnhathuoc = daoluongy.loadNhaThuocTuLuongY(getListOfTenluongy().get(pos));
+							} catch (SQLException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							view.generateResultList("C\u00e1c nh\u00e0 thu\u1ed1c li\u00ean quan '" + getListOfTennhathuoc().get(pos) + "':", getListOfTennhathuoc());
+							type2 = 5;
+						case 5:
+							view.generatePatientSentence("T\u00f4i mu\u1ed1n xem chi ti\u1ebft nh\u00e0 thu\u1ed1c '" + getListOfTennhathuoc().get(pos) + "'.");
+							view.nhathuocDetail(listnhathuoc.get(pos));
+							rateID = 5;
+							try {
+								listluongy = daonhathuoc.loadLuongYTuNhaThuoc(keyword);
+							} catch (SQLException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							view.generateResultList("C\u00e1c l\u01b0\u01a1ng y li\u00ean quan '" + getListOfTenluongy().get(pos) + "':", getListOfTenluongy());
+							type2 = 5;
+							break;
+						case 6:
+							view.baivietDetail(listbaiviet.get(pos));
+							try {
+								listluongy = daonhathuoc.loadLuongYTuNhaThuoc(keyword);
+							} catch (SQLException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							view.generateResultList("C\u00e1c l\u01b0\u01a1ng y li\u00ean quan '" + getListOfTenluongy().get(pos) + "':", getListOfTenluongy());
+							type2 = 6;
 							break;
 						default:
 							break;
@@ -619,11 +897,110 @@ public class ChatController {
 		return str;
 	}
 	
-	
-	private boolean checkAllSpace(String s){
-		for (int i = 0; i < s.length(); i++) {
-			
+	private List<String> getListOfTenbenh(){
+		List<String> str = new ArrayList<String>();
+		for (Benh b : listbenh) {
+			str.add(b.getTenBenh());
 		}
-		return false;
+		return str;
 	}
+	
+	private List<String> getListOfTennhathuoc(){
+		List<String> str = new ArrayList<String>();
+		for (NhaThuoc nt : listnhathuoc) {
+			str.add(nt.getTenNhaThuoc());
+		}
+		return str;
+	}
+	
+	private List<String> getListOfTenluongy(){
+		List<String> str = new ArrayList<String>();
+		for (LuongY ly : listluongy) {
+			str.add(ly.getTen());
+		}
+		return str;
+	}
+	
+	private List<String> getListOfTenbaiviet(){
+		List<String> str = new ArrayList<String>();
+		for (BaiViet bv : listbaiviet) {
+			str.add(bv.getTenBaiViet());
+		}
+		return str;
+	}
+	
+	private ActionListener getRateButtonActionListener(){
+		ActionListener listener = new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String[] options = new String[] {"1", "2", "3", "4", "5"};
+				String title = "\u0110\u00e1nh gi\u00e1";
+				String mes = "H\u00e3y \u0111\u01b0a ra \u0111\u00e1nh gi\u00e1 c\u1ee7a b\u1ea1n v\u1ec1 th\u00f4ng tin n\u00e0y.";
+			    int response = JOptionPane.showOptionDialog(null, mes, title, JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]) + 1;
+				System.out.println(rateID);
+			    switch(rateID){
+					case 1:
+						int p = listbaithuoc.get(pos).getDiemVote()*listbaithuoc.get(pos).getSoLuotTruyCap() + response;
+						System.out.println(p);
+					try {
+						daobaithuoc.updateLuotTruyCap(listbaithuoc.get(pos).getMaBaiThuoc());
+						daobaithuoc.updateDiemVote(listbaithuoc.get(pos).getMaBaiThuoc(), p/(listbaithuoc.get(pos).getSoLuotTruyCap()+1));
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+						break;
+					case 2:
+						int p2 = listvithuoc.get(pos).getDiemVote()*listvithuoc.get(pos).getSoLuotTruyCap() + response;
+						System.out.println(p2);
+					try {
+						daovithuoc.updateLuotTruyCap(listvithuoc.get(pos).getMaViThuoc());
+						daovithuoc.updateDiemVote(listvithuoc.get(pos).getMaViThuoc(), p2/(listvithuoc.get(pos).getSoLuotTruyCap()+1));
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+						break;
+					case 3:
+						int p3 = listbenh.get(pos).getDiemVote()*listbenh.get(pos).getSoLuotTruyCap() + response;
+						System.out.println(p3);
+					try {
+						daobenh.updateLuotTruyCap(listbenh.get(pos).getMaBenh());
+						daobenh.updateDiemVote(listbenh.get(pos).getMaBenh(), p3/(listbenh.get(pos).getSoLuotTruyCap()+1));
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					break;
+					case 4:
+						int p4 = listluongy.get(pos).getDiemVote()*listluongy.get(pos).getSoLuotTruyCap() + response;
+						System.out.println(p4);
+					try {
+						daoluongy.updateLuotTruyCap(listluongy.get(pos).getMaLuongY());
+						daoluongy.updateDiemVote(listluongy.get(pos).getMaLuongY(), p4/(listluongy.get(pos).getSoLuotTruyCap()+1));
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					break;
+					case 5:
+						int p5 = listnhathuoc.get(pos).getDiemVote()*listnhathuoc.get(pos).getSoLuotTruyCap() + response;
+						System.out.println(p5);
+					try {
+						daonhathuoc.updateLuotTruyCap(listnhathuoc.get(pos).getMaNhaThuoc());
+						daonhathuoc.updateDiemVote(listnhathuoc.get(pos).getMaNhaThuoc(), p5/(listnhathuoc.get(pos).getSoLuotTruyCap()+1));
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+						break;
+					default:
+						break;
+				}
+			}
+		};
+		return listener;
+	}	
+	
 }

@@ -27,6 +27,11 @@ import javax.swing.border.LineBorder;
 
 import model.BaiThuoc;
 import model.BaiThuocViThuoc;
+import model.BaiViet;
+import model.Benh;
+import model.LuongY;
+import model.NhaThuoc;
+import model.ViThuoc;
 
 import javax.swing.JScrollPane;
 import javax.swing.JMenuBar;
@@ -99,6 +104,8 @@ public class ChatWindow extends JFrame {
 	private final String luongychuanoHoverImg = "lycnh.png";
 	private final String baithuocchuabenhImg = "btcb.png";
 	private final String baithuocchuabenhHoverImg = "btcbh.png";
+	private final String chandoanImg = "cd.png";
+	private final String chandoanHoverImg = "cdh.png";
 	private final String tenluongyImg = "tly.png";
 	private final String tenluongyHoverImg = "tlyh.png";
 	private final String khuvucluongyImg = "kv.png";
@@ -150,6 +157,7 @@ public class ChatWindow extends JFrame {
 	private ImageButton tenbenhButton;
 	private ImageButton luongychuanoButton;
 	private ImageButton baithuocchuabenhButton;
+	private ImageButton chandoanButton;
 	//cac nut ve luong y
 	private ImageButton tenluongyButton;
 	private ImageButton khuvucluongyButton;
@@ -320,6 +328,10 @@ public class ChatWindow extends JFrame {
 		baithuocchuabenhButton.setPreferredSize(new Dimension(200, 50));
 		baithuocchuabenhButton.setOpaque(false);
 		
+		chandoanButton = new ImageButton(chandoanImg, chandoanHoverImg);
+		chandoanButton.setPreferredSize(new Dimension(200, 50));
+		chandoanButton.setOpaque(false);
+		
 		//cac nut ve luong y
 		tenluongyButton = new ImageButton(tenluongyImg, tenluongyHoverImg);
 		tenluongyButton.setPreferredSize(new Dimension(200, 50));
@@ -388,7 +400,7 @@ public class ChatWindow extends JFrame {
 		detailTitle.setOpaque(false);
 		detailTitle.setFont(BIGGER_FONT);
 		detailTitle.setOpaque(false);
-		detailTitle.setText(String.format("<html><div WIDTH=%d><center>%s</center></div><html>", 470, "My very very very very very very very very very long title text"));
+		detailTitle.setText(String.format("<html><div WIDTH=%d><center>%s</center></div><html>", 470, "Y h\u1ecdc c\u1ed5 truy\u1ec1n"));
 		topDetailPanel.add(detailTitle, BorderLayout.NORTH);
 		
 		detailScore = new JProgressBar();
@@ -430,6 +442,7 @@ public class ChatWindow extends JFrame {
 		detailInform.setMaximumSize(new Dimension(470, 100000));
 		scrollDetailPane.setViewportView(detailInform);
 		
+		openDetail();
 	}
 	
 	public void generateDoctorSentence(String sentence){
@@ -688,6 +701,7 @@ public class ChatWindow extends JFrame {
 		buttonPanel.add(tenbenhButton);
 		buttonPanel.add(luongychuanoButton);
 		buttonPanel.add(baithuocchuabenhButton);
+		buttonPanel.add(chandoanButton);
 		textButtonPanel.add(buttonPanel);
 		
 		panelBenh.add(bubble, BorderLayout.CENTER);
@@ -1030,6 +1044,9 @@ public class ChatWindow extends JFrame {
 	public void addBaiThuocChuaBenhButtonActionListener(ActionListener listener){
 		baithuocchuabenhButton.addActionListener(listener);
 	}
+	public void addChandoanButtonActionListener(ActionListener listener){
+		chandoanButton.addActionListener(listener);
+	}
 	
 	//them listener cho cac nut ve luong y
 	public void addTenLuongYButtonActionListener(ActionListener listener){
@@ -1129,6 +1146,52 @@ public class ChatWindow extends JFrame {
 		resultList.addMouseListener(adapter);
 	}
 
+	public void openDetail(){
+		detailTitle.setText(String.format("<html><div WIDTH=%d><center>%s</center></div><html>", 470, "Y h\u1ecdc c\u1ed5 truy\u1ec1n"));
+		detailScore.setValue(100);
+		detailScore.setString("5/5");
+		detailViews.setText("L\u01b0\u1ee3t vote: ");
+		
+		detailInform.removeAll();
+		
+//		JTextArea text1 = new JTextArea("Th\u00f4ng tin");
+//		text1.setFont(SMALLER_FONT);
+//		text1.setForeground(fgColor);
+//		text1.setOpaque(false);
+//		text1.setEditable(false);
+//		text1.setColumns(30);
+//		text1.setLineWrap(true);
+//		text1.setWrapStyleWord(true);
+//		
+//		detailInform.add(text1);
+		
+		JTextArea content1 = new JTextArea("L\u00fd lu\u1eadn \u0110\u00f4ng y d\u1ef1a tr\u00ean n\u1ec1n t\u1ea3ng tri\u1ebft h\u1ecdc c\u1ed5 Trung Hoa: \u00c2m D\u01b0\u01a1ng, Ng\u0169 H\u00e0nh. \u00c2m D\u01b0\u01a1ng, Ng\u0169 H\u00e0nh c\u00e2n b\u1eb1ng th\u00ec c\u01a1 th\u1ec3 kh\u1ecfe m\u1ea1nh, vi\u1ec7c ch\u1eefa b\u1ec7nh nh\u1eb1m l\u1eadp l\u1ea1i tr\u1ea1ng th\u00e1i c\u00e2n b\u1eb1ng c\u1ee7a c\u00e1c y\u1ebfu t\u1ed1 \u0111\u00f3 trong khi T\u00e2y y d\u1ef1a tr\u00ean c\u00e1c ki\u1ebfn th\u1ee9c v\u1ec1 gi\u1ea3i ph\u1eabu, sinh l\u00fd, vi sinh v.v. c\u00f9ng c\u00e1c th\u00e0nh t\u1ef1u c\u1ee7a c\u00e1c ng\u00e0nh khoa h\u1ecdc hi\u1ec7n \u0111\u1ea1i. \n" +
+
+"B\u00ean c\u1ea1nh \u00c2m D\u01b0\u01a1ng, Ng\u0169 H\u00e0nh, c\u01a1 s\u1edf l\u00fd lu\u1eadn \u0110\u00f4ng y c\u00f2n bao g\u1ed3m: h\u1ecdc thuy\u1ebft Thi\u00ean Nh\u00e2n h\u1ee3p nh\u1ea5t, h\u1ecdc thuy\u1ebft kinh l\u1ea1c, b\u00e1t c\u01b0\u01a1ng, h\u1ecdc thuy\u1ebft t\u1ea1ng t\u01b0\u1ee3ng. M\u1eb7c d\u1ea7u t\u1ea1ng t\u01b0\u1ee3ng h\u1ecdc \u0110\u00f4ng y c\u00f3 nhi\u1ec1u \u0111i\u1ec3m t\u01b0\u01a1ng \u0111\u1ed3ng v\u1edbi gi\u1ea3i ph\u1eabu v\u00e0 sinh l\u00fd h\u1ecdc T\u00e2y y, c\u00e1c t\u1eeb H\u00e1n-Vi\u1ec7t d\u00f9ng \u0111\u1ec3 ch\u1ec9 c\u00e1c t\u1ea1ng (t\u00e2m, Can, T\u1ef3, Ph\u1ebf, Th\u1eadn), ph\u1ee7 (v\u1ecb, \u0111\u1edfm, tam ti\u00eau, b\u00e0ng quang, ti\u1ec3u tr\u01b0\u1eddng, \u0111\u1ea1i tr\u01b0\u1eddng) trong \u0110\u00f4ng y kh\u00f4ng \u0111\u1ed3ng nh\u1ea5t v\u1edbi c\u00e1c t\u1eeb ch\u1ec9 c\u00e1c c\u01a1 quan theo gi\u1ea3i ph\u1eabu h\u1ecdc T\u00e2y y (tim, gan, l\u00e1ch, ph\u1ed5i, c\u1eadt; d\u1ea1 d\u00e0y, m\u1eadt v.v.). B\u1edfi l\u1ebd \u0110\u00f4ng y c\u00f3 m\u1ed9t h\u1ec7 th\u1ed1ng l\u00fd lu\u1eadn kh\u00e1c, theo \u0111\u00f3, vi\u1ec7c chia t\u00e1ch c\u01a1 th\u1ec3 th\u00e0nh c\u00e1c b\u1ed9 ph\u1eadn kh\u00e1c nhau m\u1ed9t c\u00e1ch r\u1ea1ch r\u00f2i ch\u1ec9 l\u00e0 khi\u00ean c\u01b0\u1ee1ng, do c\u01a1 th\u1ec3 l\u00e0 m\u1ed9t th\u1ec3 th\u1ed1ng nh\u1ea5t.\n" +
+
+"Tr\u00e1i ng\u01b0\u1ee3c v\u1edbi v\u0103n h\u00f3a ph\u01b0\u01a1ng T\u00e2y, v\u0103n h\u00f3a ph\u01b0\u01a1ng \u0110\u00f4ng coi tr\u1ecdng c\u00e2n b\u1eb1ng v\u00e0 \u0111i\u1ec1u h\u00f2a. Trung dung - t\u1ee9c c\u00e2n b\u1eb1ng gi\u1eefa hai th\u00e1i c\u1ef1c, \u0111\u01b0\u1ee3c ng\u01b0\u1eddi x\u01b0a t\u00f4n vinh l\u00e0 ti\u00eau chu\u1ea9n t\u1ed1i cao trong tri\u1ebft l\u00fd tu th\u00e2n c\u1ee7a b\u1eadc qu\u00e2n t\u1eed.  Trong quan h\u1ec7 v\u1edbi thi\u00ean nhi\u00ean, ph\u01b0\u01a1ng \u0110\u00f4ng kh\u00f4ng ch\u1ee7 tr\u01b0\u01a1ng ch\u1ebf ph\u1ee5c m\u00e0 h\u01b0\u1edbng t\u1edbi s\u1ef1 h\u00f2a h\u1ee3p \u2013 thi\u00ean nh\u00e2n h\u1ee3p nh\u1ea5t. Trong quan h\u1ec7 gi\u1eefa ng\u01b0\u1eddi v\u1edbi ng\u01b0\u1eddi, t\u1eeb ng\u00e0n n\u0103m x\u01b0a d\u0129 h\u00f2a vi qu\u00fd \u0111\u00e3 tr\u1edf th\u00e0nh ph\u01b0\u01a1ng ch\u00e2m x\u1eed th\u1ebf c\u01a1 b\u1ea3n. \u0110\u1eb7c t\u00ednh v\u0103n h\u00f3a \u0111\u00f3 \u0111\u00e3 \u1ea3nh h\u01b0\u1edfng s\u00e2u s\u1eafc t\u1edbi quan ni\u1ec7m v\u00e0 ph\u01b0\u01a1ng ph\u00e1p ch\u1eefa b\u1ec7nh c\u1ee7a \u0110\u00f4ng y h\u1ecdc.V\u1ec1 b\u1ec7nh t\u1eadt, \u0110\u00f4ng y quan ni\u1ec7m m\u1ecdi th\u1ee9 \u0111\u1ec1u do \u00e2m d\u01b0\u01a1ng th\u1ea5t \u0111i\u1ec1u - m\u1ea5t s\u1ef1 c\u00e2n b\u1eb1ng v\u00e0 trung dung g\u00e2y n\u00ean. \u0110\u1ec3 ch\u1eefa tr\u1ecb b\u1ec7nh t\u1eadt, \u0110\u00f4ng y s\u1eed d\u1ee5ng 8 bi\u1ec7n ph\u00e1p c\u01a1 b\u1ea3n - h\u00e3n (l\u00e0m ra m\u1ed3 h\u00f4i), th\u1ed5 (g\u00e2y n\u00f4n), h\u1ea1 (th\u00f4ng \u0111\u1ea1i ti\u1ec7n), h\u00f2a (h\u00f2a gi\u1ea3i), \u00f4n (l\u00e0m \u1ea5m), thanh (l\u00e0m m\u00e1t), ti\u00eau (ti\u00eau th\u1ee9c \u0103n t\u00edch tr\u1ec7), b\u1ed5 (b\u1ed3i b\u1ed5) \u0111\u1ec3 kh\u00f4i ph\u1ee5c c\u00e2n b\u1eb1ng ch\u1ec9nh th\u1ec3, h\u00f3a gi\u1ea3i m\u00e2u thu\u1eabn gi\u1eefa ch\u00ednh kh\u00ed (s\u1ee9c ch\u1ed1ng b\u1ec7nh) v\u00e0 t\u00e0 kh\u00ed (t\u00e1c nh\u00e2n g\u00e2y b\u1ec7nh). Trong 8 ph\u00e9p \u0111\u00f3, kh\u00f4ng c\u00f3 bi\u1ec7n ph\u00e1p n\u00e0o mang t\u00ednh \u0111\u1ed1i kh\u00e1ng, t\u1ea5n c\u00f4ng tr\u1ef1c di\u1ec7n v\u00e0o b\u1ec7nh t\u00e0 nh\u01b0 trong T\u00e2y y.\n" +
+
+"\u0110\u1eb7c bi\u1ec7t \u0111\u1ec3 th\u1ef1c hi\u1ec7n vi\u1ec7c h\u00f3a gi\u1ea3i c\u00f3 hi\u1ec7u qu\u1ea3 nh\u1ea5t, \u0110\u00f4ng y ch\u1ee7 tr\u01b0\u01a1ng tr\u1ecb v\u1ecb b\u1ec7nh (ch\u1eefa t\u1eeb khi b\u1ec7nh ch\u01b0a h\u00ecnh th\u00e0nh). 2000 n\u0103m tr\u01b0\u1edbc, N\u1ed9i kinh - b\u1ed9 s\u00e1ch kinh \u0111i\u1ec3n c\u1ee7a \u0110\u00f4ng y \u0111\u00e3 vi\u1ebft: B\u1eadc th\u00e1nh y kh\u00f4ng ch\u1edd khi b\u1ec7nh h\u00ecnh th\u00e0nh r\u1ed3i m\u1edbi ch\u1eefa tr\u1ecb, m\u00e0 ch\u1eefa t\u1eeb khi ch\u01b0a ph\u00e1t b\u1ec7nh. B\u1ec7nh \u0111\u00e3 h\u00ecnh th\u00e0nh m\u1edbi d\u00f9ng thu\u1ed1c, x\u00e3 h\u1ed9i \u0111\u00e3 r\u1ed1i lo\u1ea1n m\u1edbi lo ch\u1ea5n ch\u1ec9nh, kh\u00e1c g\u00ec khi kh\u00e1t n\u01b0\u1edbc m\u1edbi lo \u0111\u00e0o gi\u1ebfng, gi\u1eb7c t\u1edbi n\u01a1i m\u1edbi \u0111\u00fac binh kh\u00ed, ch\u1eb3ng qu\u00e1 mu\u1ed9n sao? (Th\u00e1nh nh\u00e2n b\u1ea5t tr\u1ecb d\u0129 b\u1ec7nh, tr\u1ecb v\u1ecb b\u1ec7nh; b\u1ec7nh d\u0129 th\u00e0nh nhi h\u1eadu d\u01b0\u1ee3c chi, lo\u1ea1n d\u0129 th\u00e0nh nhi h\u1eadu tr\u1ecb chi, v\u00ed do kh\u00e1t nhi xuy\u00ean t\u1ec9nh, \u0111\u1ea5u nhi ch\u00fa binh, b\u1ea5t di\u1ec7c v\u00e3n h\u1ed3).  Do ch\u1ee7 tr\u01b0\u01a1ng tr\u1ecb v\u1ecb b\u1ec7nh n\u00ean \u0110\u00f4ng y r\u1ea5t coi tr\u1ecdng d\u01b0\u1ee1ng sinh - n\u00e2ng cao ch\u00ednh kh\u00ed, ch\u00ednh kh\u00ed \u0111\u1ea7y \u0111\u1ee7 th\u00ec b\u1ec7nh t\u1eadt kh\u00f4ng th\u1ec3 x\u00e2m ph\u1ea1m (Ch\u00ednh kh\u00ed t\u1ed3n n\u1ed9i, t\u00e0 b\u1ea5t kh\u1ea3 can). \u0110\u00f3 c\u0169ng l\u00e0 t\u01b0 t\u01b0\u1edfng t\u01b0\u1edbng gi\u1ecfi kh\u00f4ng c\u1ea7n \u0111\u00e1nh m\u00e0 th\u1eafng trong T\u00f4n T\u1eed binh ph\u00e1p (B\u1ea5t chi\u1ebfn nhi khu\u1ea5t nh\u00e2n chi s\u01b0).  Trong s\u00e1ch N\u1ed9i kinh, d\u01b0\u1ee1ng sinh \u0111\u01b0\u1ee3c \u0111\u1eb7t v\u00e0o v\u1ecb tr\u00ed t\u1ed1i cao, c\u00f2n tr\u1ecb li\u1ec7u ch\u1ec9 \u0111\u01b0\u1ee3c xem l\u00e0 bi\u1ec7n ph\u00e1p \u1edf b\u00ecnh di\u1ec7n th\u1ea5p. T\u1ea5n c\u00f4ng tr\u1ef1c ti\u1ebfp v\u00e0o b\u1ec7nh t\u00e0 ch\u1ec9 \u0111\u01b0\u1ee3c \u0110\u00f4ng y xem nh\u01b0 bi\u1ec7n ph\u00e1p cu\u1ed1i c\u00f9ng, b\u1ea5t \u0111\u1eafc d\u0129. Tr\u1ecb v\u1ecb b\u1ec7nh, ph\u00f2ng b\u1ec7nh h\u01a1n ch\u1eefa b\u1ec7nh - l\u00e0 chi\u1ebfn l\u01b0\u1ee3c y t\u1ebf v\u00f4 c\u00f9ng s\u00e1ng su\u1ed1t v\u00e0 l\u00e0 n\u00e9t v\u0103n h\u00f3a \u0111\u1ed9c \u0111\u00e1o c\u1ee7a \u0110\u00f4ng y t\u1eeb ng\u00e0n n\u0103m x\u01b0a.  Ng\u00e0y nay, khi ph\u1ed5 b\u1ec7nh \u0111ang c\u00f3 xu h\u01b0\u1edbng chuy\u1ec3n t\u1eeb nhi\u1ec5m tr\u00f9ng sang b\u1ec7nh t\u00e2m th\u00e2n, n\u1ed9i ti\u1ebft, chuy\u1ec3n h\u00f3a, ph\u01b0\u01a1ng th\u1ee9c s\u1ed1ng,... th\u00ec chi\u1ebfn l\u01b0\u1ee3c \u0111\u00f3 s\u1ebd c\u00f2n c\u00f3 gi\u00e1 tr\u1ecb th\u1ef1c ti\u1ec5n v\u00e0 khoa h\u1ecdc to l\u1edbn h\u01a1n n\u1eefa.\n" +
+
+"\u0110\u00f4ng y l\u00e0 nh\u00e2n thu\u1eadt, n\u00ean \u0111\u1ed1i t\u01b0\u1ee3ng ch\u00ednh c\u1ee7a \u0110\u00f4ng y kh\u00f4ng ph\u1ea3i l\u00e0 b\u1ec7nh m\u00e0 l\u00e0 con ng\u01b0\u1eddi. Con ng\u01b0\u1eddi trong \u0110\u00f4ng y c\u00f9ng v\u1edbi m\u00f4i tr\u01b0\u1eddng, v\u0169 tr\u1ee5 h\u1ee3p th\u00e0nh m\u1ed9t ch\u1ec9nh th\u1ec3 th\u1ed1ng nh\u1ea5t, ng\u01b0\u1eddi x\u01b0a g\u1ecdi \u0111\u00f3 l\u00e0 Thi\u00ean nh\u00e2n h\u1ee3p nh\u1ea5t. B\u1ea3n th\u00e2n con ng\u01b0\u1eddi c\u0169ng l\u00e0 m\u1ed9t ch\u1ec9nh th\u1ec3 th\u1ed1ng nh\u1ea5t, n\u00ean tinh th\u1ea7n v\u00e0 th\u1ec3 x\u00e1c h\u1ee3p nh\u1ea5t v\u1edbi nhau, ng\u01b0\u1eddi x\u01b0a g\u1ecdi \u0111\u00f3 l\u00e0 H\u00ecnh th\u1ea7n h\u1ee3p nh\u1ea5t.\n" +
+
+"Ph\u01b0\u01a1ng ch\u00e2m c\u01a1 b\u1ea3n c\u1ee7a \u0110\u00f4ng y trong ch\u1eefa b\u1ec7nh l\u00e0 l\u01b0u nh\u00e2n tr\u1ecb b\u1ec7nh - ngh\u0129a l\u00e0 tr\u01b0\u1edbc h\u1ebft ph\u1ea3i gi\u1eef l\u1ea5y m\u1ea1ng s\u1ed1ng c\u1ee7a con ng\u01b0\u1eddi, sau \u0111\u00f3 m\u1edbi ngh\u0129 t\u1edbi v\u1ea5n \u0111\u1ec1 kh\u1ed1ng ch\u1ebf, ti\u00eau tr\u1eeb \u1ed5 b\u1ec7nh. M\u1ee5c ti\u00eau ch\u1eefa b\u1ec7nh c\u1ee7a \u0110\u00f4ng y l\u00e0 l\u1eadp l\u1ea1i tr\u1ea1ng th\u00e1i c\u00e2n b\u1eb1ng ch\u1ec9nh th\u1ec3. Do \u0111\u00f3 trong qu\u00e1 tr\u00ecnh ch\u1eefa b\u1ec7nh, \u0110\u00f4ng y coi tr\u1ecdng kh\u1ea3 n\u0103ng t\u1ef1 kh\u00f4i ph\u1ee5c v\u00e0 t\u00e1i t\u1ea1o c\u1ee7a c\u01a1 th\u1ec3 con ng\u01b0\u1eddi, l\u1ea5y vi\u1ec7c huy \u0111\u1ed9ng ti\u1ec1m n\u0103ng c\u1ee7a con ng\u01b0\u1eddi l\u00e0m ph\u01b0\u01a1ng ch\u00e2m ch\u00ednh. V\u00ec v\u1eady, b\u1ec7nh nh\u00e2n \u0111\u01b0\u1ee3c coi l\u00e0 ch\u1ee7 th\u1ec3, nh\u00e2n vi b\u1ea3n b\u1ec7nh vi ti\u00eau - ngh\u0129a l\u00e0 ng\u01b0\u1eddi l\u00e0 g\u1ed1c, l\u00e0 ch\u1ee7 th\u1ec3, b\u1ec7nh ch\u1ec9 l\u00e0 ng\u1ecdn.\n" +
+
+"\u0110\u00f4ng y d\u00f9ng thu\u1ed1c t\u00f9y theo nguy\u00ean t\u1eafc Bi\u1ec7n ch\u1ee9ng lu\u1eadn tr\u1ecb - ngh\u0129a l\u00e0 t\u00f9y theo ch\u1ee9ng tr\u1ea1ng bi\u1ec3u hi\u1ec7n \u1edf ng\u01b0\u1eddi b\u1ec7nh m\u00e0 s\u1eed d\u1ee5ng ph\u00e9p ch\u1eefa, b\u00e0i thu\u1ed1c kh\u00e1c nhau. Tr\u00ean l\u00e2m s\u00e0ng, tr\u0103m ng\u01b0\u1eddi m\u1eafc c\u00f9ng m\u1ed9t b\u1ec7nh, c\u00f3 th\u1ec3 \u0111\u01b0\u1ee3c ch\u1eefa tr\u1ecb b\u1eb1ng h\u00e0ng tr\u0103m ph\u01b0\u01a1ng thu\u1ed1c kh\u00e1c nhau. V\u00ec ph\u01b0\u01a1ng thu\u1ed1c \u0111\u01b0\u1ee3c l\u1eadp ra theo nguy\u00ean t\u1eafc Bi\u1ec7n ch\u1ee9ng lu\u1eadn tr\u1ecb - t\u1ee9c ph\u1ecfng theo b\u1ec7nh t\u00ecnh c\u1ee5 th\u1ec3 \u1edf t\u1eebng ng\u01b0\u1eddi b\u1ec7nh. Ph\u01b0\u01a1ng gi\u1ea3 ph\u1ecfng d\u00e3 nh\u01b0 y gia th\u1eddi x\u01b0a th\u01b0\u1eddng n\u00f3i./n");
+		content1.setFont(SMALLER_FONT);
+		content1.setForeground(fgColor);
+		content1.setOpaque(false);
+		content1.setEditable(false);
+		content1.setColumns(30);
+		content1.setLineWrap(true);
+		content1.setWrapStyleWord(true);
+		
+		detailInform.add(content1);
+		
+		detailInform.repaint();
+		
+	}
+	
 	public void baiThuocDetail(BaiThuoc baithuoc){
 		detailTitle.setText(String.format("<html><div WIDTH=%d><center>%s</center></div><html>", 470, baithuoc.getTenBaiThuoc()));
 		detailScore.setValue(baithuoc.getDiemVote()*20);
@@ -1184,4 +1247,300 @@ public class ChatWindow extends JFrame {
 		detailInform.repaint();
 		
 	}
+
+	public void viThuocDetail(ViThuoc vithuoc){
+		detailTitle.setText(String.format("<html><div WIDTH=%d><center>%s</center></div><html>", 470, vithuoc.getTenViThuoc()));
+		detailScore.setValue(vithuoc.getDiemVote()*20);
+		detailScore.setString(vithuoc.getDiemVote()+"/5");
+		detailViews.setText("L\u01b0\u1ee3t vote: " + vithuoc.getSoLuotTruyCap());
+		
+		detailInform.removeAll();
+		
+		JTextArea text1 = new JTextArea("Ch\u1ee7 tr\u1ecb");
+		text1.setFont(SMALLER_FONT);
+		text1.setForeground(fgColor);
+		text1.setOpaque(false);
+		text1.setEditable(false);
+		text1.setColumns(30);
+		text1.setLineWrap(true);
+		text1.setWrapStyleWord(true);
+		
+		detailInform.add(text1);
+		
+		JTextArea content1 = new JTextArea(vithuoc.getChuTri());
+		content1.setFont(SMALLER_FONT);
+		content1.setForeground(fgColor);
+		content1.setOpaque(false);
+		content1.setEditable(false);
+		content1.setColumns(30);
+		content1.setLineWrap(true);
+		content1.setWrapStyleWord(true);
+		
+		detailInform.add(content1);
+		
+		JTextArea text2 = new JTextArea("Ki\u00eang k\u1ef5");
+		text2.setFont(SMALLER_FONT);
+		text2.setForeground(fgColor);
+		text2.setOpaque(false);
+		text2.setEditable(false);
+		text2.setColumns(30);
+		text2.setLineWrap(true);
+		text2.setWrapStyleWord(true);
+		
+		detailInform.add(text2);
+		
+		JTextArea content2 = new JTextArea(vithuoc.getKiengKy());
+		content2.setFont(SMALLER_FONT);
+		content2.setForeground(fgColor);
+		content2.setOpaque(false);
+		content2.setEditable(false);
+		content2.setColumns(30);
+		content2.setLineWrap(true);
+		content2.setWrapStyleWord(true);
+		
+		detailInform.add(content2);
+		
+		JTextArea text3 = new JTextArea("T\u00ednh ch\u1ea5t");
+		text3.setFont(SMALLER_FONT);
+		text3.setForeground(fgColor);
+		text3.setOpaque(false);
+		text3.setEditable(false);
+		text3.setColumns(30);
+		text3.setLineWrap(true);
+		text3.setWrapStyleWord(true);
+		
+		detailInform.add(text3);
+		
+		JTextArea content3 = new JTextArea(vithuoc.getTinhChat());
+		content3.setFont(SMALLER_FONT);
+		content3.setForeground(fgColor);
+		content3.setOpaque(false);
+		content3.setEditable(false);
+		content3.setColumns(30);
+		content3.setLineWrap(true);
+		content3.setWrapStyleWord(true);
+		
+		detailInform.add(content3);
+		
+		detailInform.repaint();
+		
+	}
+	
+	public void benhDetail(Benh benh){
+		detailTitle.setText(String.format("<html><div WIDTH=%d><center>%s</center></div><html>", 470, benh.getTenBenh()));
+		detailScore.setValue(benh.getDiemVote()*20);
+		detailScore.setString(benh.getDiemVote()+"/5");
+		detailViews.setText("L\u01b0\u1ee3t vote: " + benh.getSoLuotTruyCap());
+		
+		detailInform.removeAll();
+		
+		JTextArea text1 = new JTextArea("Th\u00f4ng tin");
+		text1.setFont(SMALLER_FONT);
+		text1.setForeground(fgColor);
+		text1.setOpaque(false);
+		text1.setEditable(false);
+		text1.setColumns(30);
+		text1.setLineWrap(true);
+		text1.setWrapStyleWord(true);
+		
+		detailInform.add(text1);
+		
+		JTextArea content1 = new JTextArea(benh.getThongTin());
+		content1.setFont(SMALLER_FONT);
+		content1.setForeground(fgColor);
+		content1.setOpaque(false);
+		content1.setEditable(false);
+		content1.setColumns(30);
+		content1.setLineWrap(true);
+		content1.setWrapStyleWord(true);
+		
+		detailInform.add(content1);
+		
+		JTextArea text2 = new JTextArea("Tri\u1ec7u ch\u1ee9ng");
+		text2.setFont(SMALLER_FONT);
+		text2.setForeground(fgColor);
+		text2.setOpaque(false);
+		text2.setEditable(false);
+		text2.setColumns(30);
+		text2.setLineWrap(true);
+		text2.setWrapStyleWord(true);
+		
+		detailInform.add(text2);
+		
+		JTextArea content2 = new JTextArea(benh.getTrieuChung());
+		content2.setFont(SMALLER_FONT);
+		content2.setForeground(fgColor);
+		content2.setOpaque(false);
+		content2.setEditable(false);
+		content2.setColumns(30);
+		content2.setLineWrap(true);
+		content2.setWrapStyleWord(true);
+		
+		detailInform.add(content2);
+		
+		JTextArea text3 = new JTextArea("Ki\u00eang k\u1ef5");
+		text3.setFont(SMALLER_FONT);
+		text3.setForeground(fgColor);
+		text3.setOpaque(false);
+		text3.setEditable(false);
+		text3.setColumns(30);
+		text3.setLineWrap(true);
+		text3.setWrapStyleWord(true);
+		
+		detailInform.add(text3);
+		
+		JTextArea content3 = new JTextArea(benh.getKiengKy());
+		content3.setFont(SMALLER_FONT);
+		content3.setForeground(fgColor);
+		content3.setOpaque(false);
+		content3.setEditable(false);
+		content3.setColumns(30);
+		content3.setLineWrap(true);
+		content3.setWrapStyleWord(true);
+		
+		detailInform.add(content3);
+		
+		detailInform.repaint();
+		
+	}
+
+	public void luongyDetail(LuongY luongy){
+		detailTitle.setText(String.format("<html><div WIDTH=%d><center>%s</center></div><html>", 470, luongy.getTen()));
+		detailScore.setValue(luongy.getDiemVote()*20);
+		detailScore.setString(luongy.getDiemVote()+"/5");
+		detailViews.setText("L\u01b0\u1ee3t vote: " + luongy.getSoLuotTruyCap());
+		
+		detailInform.removeAll();
+		
+		JTextArea text1 = new JTextArea("Th\u00f4ng tin");
+		text1.setFont(SMALLER_FONT);
+		text1.setForeground(fgColor);
+		text1.setOpaque(false);
+		text1.setEditable(false);
+		text1.setColumns(30);
+		text1.setLineWrap(true);
+		text1.setWrapStyleWord(true);
+		
+		detailInform.add(text1);
+		
+		JTextArea content1 = new JTextArea(luongy.getThongTin());
+		content1.setFont(SMALLER_FONT);
+		content1.setForeground(fgColor);
+		content1.setOpaque(false);
+		content1.setEditable(false);
+		content1.setColumns(30);
+		content1.setLineWrap(true);
+		content1.setWrapStyleWord(true);
+		
+		detailInform.add(content1);
+		
+		JTextArea text2 = new JTextArea("Li\u00ean h\u1ec7");
+		text2.setFont(SMALLER_FONT);
+		text2.setForeground(fgColor);
+		text2.setOpaque(false);
+		text2.setEditable(false);
+		text2.setColumns(30);
+		text2.setLineWrap(true);
+		text2.setWrapStyleWord(true);
+		
+		detailInform.add(text2);
+		
+		JTextArea content2 = new JTextArea(luongy.getsDT());
+		content2.setFont(SMALLER_FONT);
+		content2.setForeground(fgColor);
+		content2.setOpaque(false);
+		content2.setEditable(false);
+		content2.setColumns(30);
+		content2.setLineWrap(true);
+		content2.setWrapStyleWord(true);
+		
+		detailInform.add(content2);
+		
+		detailInform.repaint();
+		
+	}
+	
+	public void nhathuocDetail(NhaThuoc nhathuoc){
+		detailTitle.setText(String.format("<html><div WIDTH=%d><center>%s</center></div><html>", 470, nhathuoc.getTenNhaThuoc()));
+		detailScore.setValue(nhathuoc.getDiemVote()*20);
+		detailScore.setString(nhathuoc.getDiemVote()+"/5");
+		detailViews.setText("L\u01b0\u1ee3t vote: " + nhathuoc.getSoLuotTruyCap());
+		
+		detailInform.removeAll();
+		
+		JTextArea text1 = new JTextArea("Th\u00f4ng tin");
+		text1.setFont(SMALLER_FONT);
+		text1.setForeground(fgColor);
+		text1.setOpaque(false);
+		text1.setEditable(false);
+		text1.setColumns(30);
+		text1.setLineWrap(true);
+		text1.setWrapStyleWord(true);
+		
+		detailInform.add(text1);
+		
+		JTextArea content1 = new JTextArea(nhathuoc.getThongTin());
+		content1.setFont(SMALLER_FONT);
+		content1.setForeground(fgColor);
+		content1.setOpaque(false);
+		content1.setEditable(false);
+		content1.setColumns(30);
+		content1.setLineWrap(true);
+		content1.setWrapStyleWord(true);
+		
+		detailInform.add(content1);
+		
+		JTextArea text2 = new JTextArea("\u0110\u1ecba ch\u1ec9");
+		text2.setFont(SMALLER_FONT);
+		text2.setForeground(fgColor);
+		text2.setOpaque(false);
+		text2.setEditable(false);
+		text2.setColumns(30);
+		text2.setLineWrap(true);
+		text2.setWrapStyleWord(true);
+		
+		detailInform.add(text2);
+		
+		JTextArea content2 = new JTextArea(nhathuoc.getDiaChi());
+		content2.setFont(SMALLER_FONT);
+		content2.setForeground(fgColor);
+		content2.setOpaque(false);
+		content2.setEditable(false);
+		content2.setColumns(30);
+		content2.setLineWrap(true);
+		content2.setWrapStyleWord(true);
+		
+		detailInform.add(content2);
+		
+		detailInform.repaint();
+		
+	}
+
+	public void baivietDetail(BaiViet baiviet){
+		detailTitle.setText(String.format("<html><div WIDTH=%d><center>%s</center></div><html>", 470, baiviet.getTenBaiViet()));
+		detailScore.setValue(baiviet.getDiemVote()*20);
+		detailScore.setString(baiviet.getDiemVote()+"/5");
+		detailViews.setText("L\u01b0\u1ee3t vote: " + baiviet.getSoLuotTruyCap());
+		
+		detailInform.removeAll();
+		
+		JTextArea content1 = new JTextArea(baiviet.getNoiDung());
+		content1.setFont(SMALLER_FONT);
+		content1.setForeground(fgColor);
+		content1.setOpaque(false);
+		content1.setEditable(false);
+		content1.setColumns(30);
+		content1.setLineWrap(true);
+		content1.setWrapStyleWord(true);
+		
+		detailInform.add(content1);
+		
+		detailInform.repaint();
+		
+	}
+	
+	public void addRateActionListener(ActionListener listener){
+		rateButton.addActionListener(listener);
+	}
+
 }
